@@ -1,0 +1,30 @@
+{
+  "name": "material-start",
+  "private": true,
+  "version": "1.0.1",
+  "description": "A TypeScript project for AngularJS Material Start",
+  "repository": "https://github.com/angular/material-start",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "dependencies": {
+    "@types/angular": "^1.8.4",
+    "@types/angular-animate": "^1.5.11",
+    "@types/angular-material": "^1.1.73",
+    "@types/jquery": "^3.5.14",
+    "@types/jspdf": "^2.0.0",
+    "angular": "^1.8.2",
+    "angular-animate": "^1.8.2",
+    "angular-aria": "^1.8.2",
+    "angular-material": "github:angular/bower-material",
+    "angular-messages": "^1.8.2",
+    "angular-sanitize": "^1.8.2",
+    "jspdf": "^2.5.1",
+    "systemjs": "^0.19.47",
+    "typescript": "^3.9.10"
+  },
+  "scripts": {
+    "start": "live-server --open=app"
+  }
+}

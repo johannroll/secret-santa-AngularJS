@@ -1,0 +1,46 @@
+  
+<md-content  id="content">
+<div class="hero">
+  <div class="hero-img-container ">
+    <img class="hero-img " src="/app/assets/santa.png" alt="Image of Santa"> 
+  </div>
+  <div class="clip-path-shadow">
+    <div class="triangle my-element"></div>
+  </div>
+  <!-- <img class="hero-triangle-background" src="/app/assets/Green_equilateral_triangle_point_up.png" alt="Image of Santa"> -->
+  <h1 class="hero-heading">Secret Santa</h1>
+  <p class="days-till-christmas">{{($ctrl.dateChristmasEve - $ctrl.dateCurrent) / (1000 * 60 * 60 * 24)}} days to Christmas</p>
+</div>
+<div dynamic-height class="input-container">
+  <h2 class="serif-font">Add names</h2>
+  <div layout-gt-sm="row">
+      <md-input-container class="md-inline md-primary" flex-gt-sm>
+        <label>First name</label>
+        <input type="text" auto-focus ng-model="$ctrl.inputValue">
+      </md-input-container>
+    </div>
+    <md-button ng-disabled="$ctrl.inputValue === ''" ng-click="$ctrl.getInputValue()" class="md-raised md-accent md-hue-2 add-btn">Add</md-button>
+    <div class="secret-santas my-element" ng-if="$ctrl.names.length > 0">
+      <h3>Secret Santas</h3>
+      <div ng-repeat="name in $ctrl.names track by $index" class="names-list my-element">
+        <p class="list-name" >{{$index + 1}}. {{ name }} </p>
+        <div class="icon-close-container">
+          <md-icon class="icon-close"  ng-click="$ctrl.removeName($index)" >highlight_off</md-icon>
+        </div>
+      </div>
+    </div>
+    <div class="button-overlay-container">
+      <md-button ng-show="$ctrl.names.length > 0" ng-disabled="$ctrl.names.length == 1" ng-click="$ctrl.matchSantas($event)" class="md-raised md-warn match-btn">Match Santas</md-button>
+      <div ng-show="$ctrl.names.length == 1" class="overlay" ng-click="$ctrl.disabledButtonClick()"></div>
+    </div>
+  </div>
+  <!-- <ms-user-details selected="$ctrl.selected"></ms-user-details> -->
+  <div class="sleigh-img-container">
+    <img src="/app/assets/svg/flying-santa-sleigh.svg" alt="">
+  </div>
+</md-content>
+<div ng-if="$ctrl.isLoading" class="loader-wrapper">
+  <div class="loader"></div>
+</div>
+      
+  

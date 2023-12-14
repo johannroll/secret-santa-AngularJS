@@ -1,0 +1,382 @@
+[ng-cloak] {
+  display: none;
+}
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* background: linear-gradient(#fff,#a4c59f,#286f2a); */
+}
+
+
+
+/* Toolbar area */
+
+.menu {
+  background-color: transparent;
+  border: none;
+  height: 38px;
+  margin: 16px;
+  width: 36px;
+}
+
+/* Sidenav area */
+
+md-list .md-button {
+  color: inherit;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+
+md-list .md-button.selected {
+  color: #03a9f4;
+}
+
+md-sidenav md-list {
+  padding: 0 0 8px 0;
+}
+
+
+/* Primary content area */
+
+#content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0px !important;
+  background-color: transparent;
+  overflow-x: hidden;
+}
+
+#content md-icon.avatar {
+  margin-top: 10px;
+}
+
+md-button.menuBtn > md-icon {
+  fill: white;
+  width: 24px;
+  height: 24px;
+}
+
+.avatar {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+  vertical-align: middle;
+  zoom: 0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform: scale(0.70);
+}
+
+md-bottom-sheet md-icon {
+  margin-right: 20px;
+}
+
+span.name {
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-left: 5px;
+}
+
+.sleigh-img-container {
+  margin: 3rem 0 1rem;
+  width: 100px;
+  align-self: center;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-heading {
+  font-family: 'Beau Rivage', cursive;
+  font-size: 6rem;
+  margin-top: 0.5rem;
+  padding: 0px 8px;
+  z-index: 10;
+  background: -webkit-linear-gradient(#ffffff, #fcdfc7, #fb3f7e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.days-till-christmas {
+  font-family: 'Beau Rivage', cursive;
+  font-size: 2rem;
+  color: #fbd4d4;
+  z-index: 10;
+  font-weight: 600;
+  margin-top: -5.5rem;
+}
+
+.hero-img-container {
+  background: transparent;
+  height: 300px;
+  margin-top: 8rem;
+  box-shadow: 0px 0.5px 7px 4px rgb(0, 0, 0, 0.1);
+  border-radius: 20px;
+  z-index: 10;
+ 
+}
+
+.hero-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+ 
+
+}
+
+.hero-triangle-background {
+  height: 500px;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  
+}
+
+.input-container {
+  /* width: 100%; */
+  min-height: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.serif-font {
+  /* font-family: cursive; */
+  color:#1b1b1b;
+  font-size: 1.6rem;
+  margin: 5rem 0 2rem;
+  z-index: 10;
+}
+
+md-input-container {
+  margin: 0 0 -1rem !important;
+  text-align: center;
+}
+
+.add-btn {
+  margin-bottom: 2.5rem;
+}
+
+.secret-santas {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.names-list {
+  width: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ddd;
+  padding: 0px 15px;
+  margin: 3px;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+}
+
+.names-list:hover {
+ background: #8e9eac;
+}
+
+.list-name {
+  justify-self: start;
+}
+
+.icon-close-container {
+  align-self: center;
+  justify-self: end;
+  color: darkolivegreen;
+  cursor: pointer;
+}
+
+.icon-close {
+  color: darkolivegreen;
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-close:hover {
+  color:#ED303C
+}
+
+.match-btn {
+  padding: 0 35px ;
+  margin: 0;
+}
+
+.pattern {
+  --s: 100px; /* control the size */
+  --c1: #F8B195;
+  --c2: #355C7D;
+  
+  --_g: 
+     var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,
+     var(--c2) 46% 54%,var(--c1) 56% 64%,var(--c2) 66% 74%,var(--c1) 76% 84%,var(--c2) 86% 94%;
+  background:
+    radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0008 96%,#0000),
+    radial-gradient(100% 100% at 0 100%,#0000, #0008 4%,var(--_g),var(--c1) 96%)
+    var(--c1);
+  background-size: var(--s) var(--s);
+}
+
+.clip-path-shadow {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  filter: drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
+}
+
+.triangle {
+  background: rgb(14, 121, 55);
+  width: 700px;
+  aspect-ratio: 1;
+  clip-path: polygon(93.30% 75.00%,6.70% 75.00%,50.00% 0.00%);
+  z-index: 1;
+
+}
+
+
+
+/* HTML: <div class="loader"></div> */
+
+.loader-wrapper {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.4)
+  
+}
+
+.loader {
+  width: 80px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side,#ED303C 94%,#0000),
+    radial-gradient(farthest-side,#3B8183 94%,#0000),
+    radial-gradient(farthest-side,#FAD089 94%,#0000),
+    radial-gradient(farthest-side,#FF9C5B 94%,#0000),
+    #ED303C;
+  background-size: 105% 105%;
+  background-repeat: no-repeat;
+  animation: l5 2s infinite; 
+}
+@keyframes l5 {
+  0%  {background-position: 50% -90px,-80px 50%, 50% calc(100% + 80px),calc(100% + 80px) 50%}
+  20%,
+  25% {background-position: 50% -90px,-90px 50%, 50% calc(100% + 90px),50% 50%}
+  45%,
+  50% {background-position: 50% -90px,-90px 50%, 50% 50%              ,50% 50%}
+  75%,
+  75% {background-position: 50% -90px, 50%  50%, 50% 50%              ,50% 50%}
+  95%,
+  100%{background-position: 50%  50% , 50%  50%, 50% 50%              ,50% 50%}
+}
+.santa-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.santa-name {
+  width: 100px;
+  text-align: left;
+}
+
+.cart-container {
+  width: 100px;
+  text-align: center;
+}
+
+
+.recipient-name {
+  width: 100px;
+  text-align:right;
+}
+
+.my-toast {
+  height: 150px;
+  top: 50% !important; /* Vertically center */
+  left: 50% !important; /* Horizontally center */
+  transform: translate(-50%, 25%); /* Adjust position to truly center */
+}
+
+md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+  background: rgb(255, 64, 0);
+  /* border: 2px solid rgb(203, 60, 60); */
+}
+
+/* Animation when an element is added */
+.my-element.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+
+.my-element.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+/* Animation when an element is removed */
+.my-element.ng-leave {
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+
+.my-element.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.container {
+  transition: width 0.5s, height 0.5s;
+}
+
+.container.ng-animate {
+  transition: width 0.5s, height 0.5s;
+}
+
+.button-overlay-container {
+  position: relative;
+  display: inline-block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+
+
+
+
+
+
+

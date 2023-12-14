@@ -6,6 +6,7 @@
   "repository": "https://github.com/angular/material-start",
   "license": "MIT",
   "devDependencies": {
+    "gulp-typescript": "^6.0.0-alpha.1",
     "live-server": "^1.2.1"
   },
   "dependencies": {
@@ -20,6 +21,12 @@
     "angular-material": "github:angular/bower-material",
     "angular-messages": "^1.8.2",
     "angular-sanitize": "^1.8.2",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
     "jspdf": "^2.5.1",
     "systemjs": "^0.19.47",
     "typescript": "^3.9.10"

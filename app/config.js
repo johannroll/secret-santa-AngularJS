@@ -11,7 +11,7 @@ System.config({
   },
 
   // Set the Base URL that files will be loaded from to /dist (instead of /app)
-  baseURL: '/app/src',
+  baseURL: '/app',
 
   // Tell it how to find our Angular dependencies
   map: {

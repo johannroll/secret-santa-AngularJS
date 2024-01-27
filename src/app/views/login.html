@@ -1,0 +1,49 @@
+<md-content layout="column" layout-align="center center"  class="view-container" ng-cloak>
+    <div>
+        <h2 class="hero-heading">Secret Santa</h2>
+        <md-card class="md-raised login-card">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Login</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content class="login-card-content">
+
+                <form name="myPassForm" autocomplete="off" ng-cloak>
+                  <md-input-container class="md-block md-primary" flex-gt-sm>
+                      <label>Email</label>
+                      <input type="email"  ng-model="email" name="userEmail" required ng-pattern="/^.+@.+\..+$/">
+                      <div ng-messages="myPassForm.userEmail.$error">
+                        <div ng-message="required">Email is required.</div>
+                        <div ng-message="email">Valid email required.</div>
+                      </div>
+                    </md-input-container>
+                  <md-input-container class="md-block md-primary" flex-gt-sm>
+                      <label>Password</label>
+                      <input type="{{ passwordType }}" ng-model="password" required minlength="6" name="userPassword" ng-enter="login()">
+                      <md-icon class="cursor-pointer" ng-click="viewPassword()" >{{ passwordVisible }}</md-icon>
+                      <div ng-messages="myPassForm.userPassword.$error">
+                        <div ng-message="required">Password is required.</div>
+                        <div ng-message="minlength">Valid password required.</div>
+                      </div>
+                    </md-input-container>
+                  </form>
+                  <p class="md-caption login-signup-link">
+                    <a ng-click="forgotPassword($event)" class="md-primary md-body2">Forgot password?</a>
+                  </p>
+                  </md-card-content>
+            <md-card-actions layout="column" layout-align="start">
+              <!-- <md-checkbox md-no-ink ng-model="rememberUser" class="md-primary checkbox hints">
+                    Remember me
+              </md-checkbox> -->
+              <div class="button-overlay-container">
+                <md-button class="md-primary md-raised submit-btn" ng-disabled="!isLoginValid" ng-click="login()" ng-enter="login()">Login</md-button>
+                <div ng-show="!isLoginValid" class="overlay" ng-click="vm.disabledLoginButtonClick()"></div>
+              </div>
+              <p class="md-caption login-signup-link">
+                Don't have an account? <a ng-click="toSignupPage()" class="md-primary md-body2">Sign up</a>
+              </p>
+            </md-card-actions>
+          </md-card>
+    </div>
+</md-content>

@@ -1,0 +1,33 @@
+<md-content layout="column" layout-align="center center"  class="view-container" ng-cloak>
+    <div>
+        <md-card class="login-card">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Sign Up</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content class="login-card-content">
+
+                <form name="myForm"  autocomplete="off" ng-cloak>
+                  <md-input-container class="md-block md-primary" flex-gt-sm ng-cloak>
+                      <label>Email</label>
+                      <input type="email" auto-focus required ng-model="email" name="signupEmail" ng-pattern="/^.+@.+\..+$/" ng-enter="verifyEmail()">
+                      <div ng-messages="myForm.signupEmail.$error">
+                        <div ng-message="required">Email is required.</div>
+                        <div ng-message="email">Valid email required.</div>
+                      </div>
+                  </md-input-container>
+                </form>
+            </md-card-content>
+            <md-card-actions layout="column" layout-align="start">
+              <div class="button-overlay-container">
+                <md-button class="md-primary md-raised submit-btn" ng-disabled="!enableVerify" ng-click="verifyEmail()">Verify</md-button>
+                <div ng-show="!enableVerify" class="overlay" ng-click="vm.disabledVerifyButtonClick()"></div>
+            </div>
+              <p class="md-caption login-signup-link">
+                Already have an account? <a ng-click="toLoginPage()" class="md-primary md-body2">Login</a>
+              </p>
+            </md-card-actions>
+          </md-card>
+    </div>
+</md-content>

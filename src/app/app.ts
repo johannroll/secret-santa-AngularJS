@@ -647,7 +647,7 @@ app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, 
     },
       responseError: function(response: any) {
           console.log("repsonseError: ", response.data);
-          if (response.status === 401 && response.statusText === 'Unauthorized') {
+          if (response.status === 401) {
               // Token has expired
               // Handle token expiration, e.g., redirect to login
               var $mdDialog = $injector.get('$mdDialog');

@@ -12,6 +12,10 @@ html, body {
   /* background: linear-gradient(#fff,#a4c59f,#286f2a); */
 }
 
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

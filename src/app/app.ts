@@ -647,7 +647,7 @@ app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, 
     },
       responseError: function(response: any) {
           console.log("repsonseError: ", response.data);
-          var token = $window.loacalStorage.get('userToken');
+          var token = $window.loacalStorage.getItem('userToken');
           if (response.status === 401 && token !== null) {
               // Token has expired
               // Handle token expiration, e.g., redirect to login

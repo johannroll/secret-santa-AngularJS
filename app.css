@@ -1,0 +1,712 @@
+[ng-cloak] {
+  display: none;
+}
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+ 
+  /* background: linear-gradient(#fff,#a4c59f,#286f2a); */
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+#theme-button {
+  background: transparent;
+  box-shadow: none;
+}
+
+@media screen and (width < 500px) {
+  body {
+    overflow: hidden !important;
+  }
+}
+
+.body-light {
+  background: rgb(250,250,250);
+}
+
+.body-dark {
+  background: rgb(48,48,48);
+}
+
+.index-container {
+  height: 100%;
+  padding-bottom: 0px !important;
+}
+
+.view-body {
+  height: 100% !important;
+}
+
+h2 {
+  margin-top: 0px !important;
+}
+
+.tabs-heading {
+  font-size: 2rem;
+  margin-bottom: 0px !important;
+  
+}
+
+
+@media screen and (width < 500px) {
+  .tabs-heading {
+    margin-top: -3.2rem !important;
+    font-size: 1.6rem;
+  }
+  .add-people {
+    font-size: 1.25rem;
+  } 
+}
+
+md-toolbar .md-dark-theme {
+  background: rgb(55, 55, 55) !important;
+}
+
+md-toolbar .md-light-theme {
+  background: rgb(241, 241, 241) !important;
+}
+
+md-toolbar.md-dark-theme:not(.md-menu-toolbar) {
+  background-color: rgb(55,55,55);
+  color: rgb(255,255,255);
+}
+
+md-toolbar.md-light-theme:not(.md-menu-toolbar) {
+  background-color: rgb(241, 241, 241);
+  color: rgb(255,255,255);
+}
+
+.toolbar-transition {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.menu {
+  max-height: 65px;
+  box-shadow: 0px 3px 12px 3px rgb(0, 0, 0, 0.5);
+}
+
+md-nav-bar {
+  padding-top: 5rem;
+  margin-bottom: 0rem;
+ 
+}
+
+md-dialog-content .santa-dialog {
+  max-height: 400px !important; /* Adjust this value as needed */
+  overflow-y: auto !important;  /* Enables vertical scrolling */
+}
+
+.newList {
+  padding-top: 3rem;
+}
+
+.listItem {
+  width: 100% !important;
+  justify-self: center;
+}
+
+.userMenu {
+  margin: 0px !important;
+  margin-right: auto !important;
+}
+
+.user {
+  color: #7788a2;
+  font-size: 17px;
+  margin-left: 15px;
+  padding: 3px 3px;
+  font-weight: 400;
+  /* margin-right: auto; */
+  border: none !important;
+  outline: none !important;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #62a3a7;
+  text-decoration-thickness: 1.5px;
+  
+  /* background: linear-gradient(rgb(230, 53, 83),rgb(247, 118, 118)); */
+}
+
+.user-lists {
+  z-index: 5;
+}
+
+.lists-container {
+  margin-top: -1rem;
+  width: 330px;
+  min-height: 500px;
+  z-index: 1;
+}
+
+.face-icon {
+  color: #6d829f !important;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+@media screen and (width < 500px) {
+  .face-icon {
+    display: none;
+  }
+}
+
+.logout-btn {
+  margin-right: 15px;
+}
+
+@media screen and (width < 500px) {
+  .logout-btn{
+    display: none;
+
+  }
+}
+
+/* Sidenav area */
+
+md-list .md-button {
+  color: inherit;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+
+md-list .md-button.selected {
+  color: #03a9f4;
+}
+
+md-sidenav md-list {
+  padding: 0 0 8px 0;
+}
+
+
+/* Primary content area */
+
+#login-content {
+  height: 100vh;
+}
+
+.login-card {
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.submit-btn {
+  width: 100% !important;
+}
+
+#content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0px 0px !important;
+  background-color: transparent;
+  overflow-x: hidden;
+}
+
+#content md-icon.avatar {
+  margin-top: 10px;
+  background: var(--theme);
+}
+
+.home-content {
+  padding-bottom: 0rem;
+  height: 100vh;
+}
+
+md-button.menuBtn > md-icon {
+  fill: white;
+  width: 24px;
+  height: 24px;
+}
+
+.avatar {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+  vertical-align: middle;
+  zoom: 0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform: scale(0.70);
+}
+
+md-bottom-sheet md-icon {
+  margin-right: 20px;
+}
+
+span.name {
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-left: 5px;
+}
+
+.sleigh-img-container {
+  margin: 3rem 0 1rem;
+  width: 100px;
+  align-self: center;
+  background: transparent;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.hero-heading {
+  font-family: 'Beau Rivage', cursive;
+  font-size: 6rem;
+  margin-top: 0.5rem;
+  padding: 0px 8px;
+  z-index: 10;
+  background: -webkit-linear-gradient(#fed8d8, #eac2a1, #fb3f7e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.days-till-christmas {
+  font-family: 'Beau Rivage', cursive;
+  font-size: 2rem;
+  color: #fbd4d4;
+  z-index: 10;
+  font-weight: 600;
+  margin-top: -5.5rem;
+}
+
+.hero-img-container {
+  background: transparent;
+  height: 300px;
+  margin-top: 8rem;
+  box-shadow: 0px 0.5px 7px 4px rgb(0, 0, 0, 0.1);
+  border-radius: 20px;
+  z-index: 10;
+  
+}
+
+@media screen and (width < 500px) {
+  .hero-heading {
+    font-size: 4rem;
+  }
+
+  .hero-img-container {
+    height: 250px;
+  }
+
+  .days-till-christmas {
+    font-size: 1.6rem;
+    margin-top: -4rem;
+  }
+}
+.hero-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  
+}
+
+.hero-triangle-background {
+  height: 500px;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  
+}
+.tabs-container {
+  width: 100vw;
+}
+
+.tabs {
+  margin-top: 6rem;
+  background: transparent;
+  width: 100%;
+  max-width: 700px;
+  
+}
+
+.tabs-background {
+  background: transparent !important;
+  z-index: 0;
+  height: 550px;
+}
+
+.input-container {
+  /* width: 100%; */
+  min-height: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.serif-font {
+  /* font-family: cursive; */
+  font-size: 1.6rem;
+  margin: 5rem 0 2rem;
+  z-index: 10;
+}
+
+md-input-container .add-names {
+  margin: 0 0 -1rem !important;
+  text-align: center;
+}
+
+.add-btn {
+  margin-bottom: 2.5rem;
+  width: 200px;
+}
+
+.clear-btn {
+ margin-bottom: 4rem;
+ width: 200px;
+ background: #f84a4a !important;
+}
+
+.listEdit-btn {
+  margin-top: -2rem !important;
+  padding-top: 0px;
+  color: rgb(0, 191, 191) !important;
+}
+
+.secret-santas {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.santa-editing {
+  padding-top: 15px;
+  
+ 
+}
+
+
+.names-list {
+  width: 280px;
+  display: grid;
+  grid-template-columns: 1fr 20px;
+  background: #819ea9;
+  padding: 0px 15px;
+  margin: 3px;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+  overflow: auto;
+}
+
+.names-list:hover {
+ background: #98b2cd;
+}
+
+.list-name {
+  justify-self: start;
+  padding: 6px 0px;
+}
+
+.list-name h3,
+.list-name p {
+  margin: 0rem;
+  text-align: left;
+}
+
+.icon-close-container {
+  width: 20px;
+  align-self: center;
+  justify-self: end;
+  color: darkolivegreen;
+  cursor: pointer;
+}
+
+.icon-close {
+  color: darkolivegreen;
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-close:hover {
+  color:#ED303C
+}
+
+.match-btn {
+  padding: 0 35px ;
+  margin-bottom: 4rem;
+  width: 200px;
+}
+
+.pattern {
+  --s: 100px; /* control the size */
+  --c1: #F8B195;
+  --c2: #355C7D;
+  
+  --_g: 
+     var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,
+     var(--c2) 46% 54%,var(--c1) 56% 64%,var(--c2) 66% 74%,var(--c1) 76% 84%,var(--c2) 86% 94%;
+  background:
+    radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0008 96%,#0000),
+    radial-gradient(100% 100% at 0 100%,#0000, #0008 4%,var(--_g),var(--c1) 96%)
+    var(--c1);
+  background-size: var(--s) var(--s);
+}
+
+.clip-path-shadow {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  filter: drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
+}
+
+.triangle {
+  background: rgb(14, 121, 55);
+  width: 700px;
+  aspect-ratio: 1;
+  clip-path: polygon(93.30% 75.00%,6.70% 75.00%,50.00% 0.00%);
+  
+
+}
+
+@media screen and (width < 500px) {
+  .triangle {
+    width: 575px;
+  }
+}
+
+
+
+/* HTML: <div class="loader"></div> */
+
+.loader-wrapper {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.4)
+  
+}
+
+.loader {
+  width: 80px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side,#ED303C 94%,#0000),
+    radial-gradient(farthest-side,#3B8183 94%,#0000),
+    radial-gradient(farthest-side,#FAD089 94%,#0000),
+    radial-gradient(farthest-side,#FF9C5B 94%,#0000),
+    #ED303C;
+  background-size: 105% 105%;
+  background-repeat: no-repeat;
+  animation: l5 2s infinite; 
+}
+@keyframes l5 {
+  0%  {background-position: 50% -90px,-80px 50%, 50% calc(100% + 80px),calc(100% + 80px) 50%}
+  20%,
+  25% {background-position: 50% -90px,-90px 50%, 50% calc(100% + 90px),50% 50%}
+  45%,
+  50% {background-position: 50% -90px,-90px 50%, 50% 50%              ,50% 50%}
+  75%,
+  75% {background-position: 50% -90px, 50%  50%, 50% 50%              ,50% 50%}
+  95%,
+  100%{background-position: 50%  50% , 50%  50%, 50% 50%              ,50% 50%}
+}
+.santa-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.list-scroll {
+    display: flex !important; /* Use flex layout for the row */
+    overflow-x: auto !important; /* Enable horizontal scrolling */
+    white-space: nowrap !important; /* Prevent items from wrapping to the next line */
+}
+
+.md-list-item-text.word-wrap {
+  flex-shrink: 0 !important; /* Prevent shrinking of text container */
+  width: 150px !important; /* Set a fixed width for each item */
+}
+
+.word-wrap {
+  /* word-wrap: break-word !important; 
+  overflow-wrap: break-word !important; */
+  overflow: hidden !important; 
+}
+
+.santa-name {
+  width: 100px;
+  text-align: left;
+}
+
+.cart-container {
+  width: 50px;
+  text-align: center;
+}
+
+
+.recipient-name {
+  width: 100px;
+  text-align:right;
+}
+
+.my-toast {
+  height: 150px;
+  top: 50% !important; /* Vertically center */
+  left: 50% !important; /* Horizontally center */
+  transform: translate(-50%, 50%); /* Adjust position to truly center */
+  max-width: 350px;
+}
+
+md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+  background: rgb(255, 64, 0);
+  /* border: 2px solid rgb(203, 60, 60); */
+}
+
+/* Animation when an element is added */
+.my-element.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0;
+}
+
+.my-element.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+/* Animation when an element is removed */
+.my-element.ng-leave {
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+
+.my-element.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.container {
+  transition: width 0.5s, height 0.5s;
+}
+
+.container.ng-animate {
+  transition: width 0.5s, height 0.5s;
+}
+
+.button-overlay-container {
+  position: relative;
+  display: inline-block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.view-container {
+  height: 100vh;
+}
+
+.create-container {
+  position: relative;
+  padding-top: 0rem !important;
+ 
+}
+
+.newlist-form {
+  margin-top: -3.5rem !important;
+}
+
+.animation-wrapper {
+  position: relative;
+}
+
+.create-animation-wrapper {
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.slide.ng-enter,
+.slide.ng-leave {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.slide.ng-enter {
+  left: 100%;
+}
+.slide.ng-enter-active {
+  left: 0;
+}
+.slide.ng-leave {
+  left: 0;
+}
+.slide.ng-leave-active {
+  left: -100%;
+}
+
+.slide2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.slide2.ng-enter,
+.slide2.ng-leave {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.slide2.ng-enter {
+  left: 100%;
+}
+.slide2.ng-enter-active {
+  left: 0;
+}
+.slide2.ng-leave {
+  left: 0;
+}
+.slide2.ng-leave-active {
+  left: -100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+

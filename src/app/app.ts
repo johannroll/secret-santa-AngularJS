@@ -637,6 +637,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
 })
 
 app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, $injector: any, $location: any) {
+  var token = localStorage.getItem('userToken');
   return {
     request: function (config: any) {
       config.headers = config.headers || {};
@@ -647,7 +648,7 @@ app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, 
     },
       responseError: function(response: any) {
           console.log("repsonseError: ", response.data);
-          if (response.status === 401 && $window.loacalStorage.getItem('userToken')) {
+          if (response.status === 401 && token !== null) {
               // Token has expired
               // Handle token expiration, e.g., redirect to login
               var $mdDialog = $injector.get('$mdDialog');

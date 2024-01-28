@@ -319,15 +319,14 @@ span.name {
 
   .days-till-christmas {
     font-size: 1.6rem;
-    margin-top: -4.5rem;
+    margin-top: -4rem;
   }
 
 }
 
 @media screen and (max-width: 400px) {
   .md-dialog-content {
-    min-width: 100%;
-    max-width: 100%;
+    width: 100%;
   }
 
 }

@@ -307,10 +307,11 @@ span.name {
 @media screen and (max-width: 500px) {
   .hero-heading {
     font-size: 4rem;
+    margin-top: 6rem;
   }
 
   .hero-img-container {
-    height: 200px;
+    height: 150px;
   }
 
   .days-till-christmas {
@@ -486,7 +487,8 @@ md-input-container .add-names {
 
 @media screen and (max-width: 500px) {
   .triangle {
-    width: 360px;
+    width: 365px;
+    height: 400px;
   }
 }
 

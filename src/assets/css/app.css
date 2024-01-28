@@ -307,17 +307,28 @@ span.name {
 @media screen and (max-width: 500px) {
   .hero-heading {
     font-size: 4rem;
-    margin-top: 0rem;
+    margin-top: 1rem;
   }
 
   .hero-img-container {
     height: 150px;
+    width: 150px;
+    margin-top: 6rem;
   }
 
   .days-till-christmas {
     font-size: 1.6rem;
-    margin-top: -2rem;
+    margin-top: 0rem;
   }
+
+}
+
+@media screen and (max-width: 400px) {
+  .md-dialog-content {
+    min-width: 100vw;
+    max-width: 100vw;
+  }
+
 }
 .hero-img {
   height: 100%;
@@ -383,6 +394,12 @@ md-input-container .add-names {
  margin-bottom: 4rem;
  width: 200px;
  background: #f84a4a !important;
+}
+
+@media screen and (max-width: 500px) {
+  .clear-btn {
+    margin-bottom: 10rem;
+  }
 }
 
 .listEdit-btn {

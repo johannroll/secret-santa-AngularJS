@@ -812,25 +812,25 @@ export class HomeController {
                             </div>
                         </md-dialog-content>
                         <md-dialog-actions layout="row">
-                            <md-button class="md-icon-button" ng-click="shareList()">
+                            <md-button flex  class="md-icon-button" ng-click="shareList()">
                                 <md-icon>send</md-icon>
                                 <md-tooltip md-direction="top">
                                     Send
                                 </md-tooltip>
                             </md-button>
-                            <md-button class="md-icon-button" ng-click="showConfirmAndDownloadOldList()">
+                            <md-button flex  class="md-icon-button" ng-click="showConfirmAndDownloadOldList()">
                             <md-icon>download_for_offline</md-icon>
                             <md-tooltip md-direction="top">
                                 Download
                             </md-tooltip>
                         </md-button>
-                            <md-button ng-click="showConfirmAndDeleteList()">
+                            <md-button flex  class="md-icon-button" ng-click="showConfirmAndDeleteList()">
                                 <md-icon>delete</md-icon>
                                 <md-tooltip md-direction="top">
                                 Download
                                 </md-tooltip>
                             </md-button>
-                                <md-button ng-click="closeDialog()">
+                                <md-button flex ng-click="closeDialog()">
                                 Ok
                             </md-button>
                         </md-dialog-actions>

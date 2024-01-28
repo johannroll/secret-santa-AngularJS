@@ -324,12 +324,6 @@ span.name {
 
 }
 
-@media screen and (max-width: 400px) {
-  .md-dialog-content {
-    width: 100%;
-  }
-
-}
 .hero-img {
   height: 100%;
   width: 100%;
@@ -498,16 +492,18 @@ md-input-container .add-names {
   background: rgb(14, 121, 55);
   width: 700px;
   aspect-ratio: 1;
-  -webkit-clip-path: polygon(93.30% 75.00%, 6.70% 75.00%, 50.00% 0.00%);
   clip-path: polygon(93.30% 75.00%,6.70% 75.00%,50.00% 0.00%);
+  -webkit-clip-path: polygon(93.30% 75.00%, 6.70% 75.00%, 50.00% 0.00%);
   
-
+  
 }
 
 @media screen and (max-width: 500px) {
   .triangle {
     width: 365px;
     height: 400px;
+    clip-path: polygon(93.30% 75.00%,6.70% 75.00%,50.00% 0.00%);
+    -webkit-clip-path: polygon(93.30% 75.00%, 6.70% 75.00%, 50.00% 0.00%);
   }
 }
 

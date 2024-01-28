@@ -307,7 +307,7 @@ span.name {
 @media screen and (max-width: 500px) {
   .hero-heading {
     font-size: 4rem;
-    margin-top: 6rem;
+    margin-top: 0rem;
   }
 
   .hero-img-container {
@@ -316,7 +316,7 @@ span.name {
 
   .days-till-christmas {
     font-size: 1.6rem;
-    margin-top: -4rem;
+    margin-top: -2rem;
   }
 }
 .hero-img {

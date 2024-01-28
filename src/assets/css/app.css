@@ -25,7 +25,7 @@ input:-internal-autofill-selected {
   box-shadow: none;
 }
 
-@media screen and (width < 500px) {
+@media screen and (max-width: 500px) {
   body {
     overflow: hidden !important;
   }
@@ -59,7 +59,7 @@ h2 {
 }
 
 
-@media screen and (width < 500px) {
+@media screen and (max-width: 500px) {
   .tabs-heading {
     margin-top: -3.2rem !important;
     font-size: 1.6rem;
@@ -157,7 +157,7 @@ md-dialog-content .santa-dialog {
   margin-left: 5px;
 }
 
-@media screen and (width < 500px) {
+@media screen and (max-width: 500px) {
   .face-icon {
     display: none;
   }
@@ -167,7 +167,7 @@ md-dialog-content .santa-dialog {
   margin-right: 15px;
 }
 
-@media screen and (width < 500px) {
+@media screen and (max-width: 500px) {
   .logout-btn{
     display: none;
 
@@ -304,13 +304,13 @@ span.name {
   
 }
 
-@media screen and (width < 500px) {
+@media screen and (max-width: 500px) {
   .hero-heading {
     font-size: 4rem;
   }
 
   .hero-img-container {
-    height: 250px;
+    height: 200px;
   }
 
   .days-till-christmas {
@@ -484,9 +484,9 @@ md-input-container .add-names {
 
 }
 
-@media screen and (width < 500px) {
+@media screen and (max-width: 500px) {
   .triangle {
-    width: 575px;
+    width: 360px;
   }
 }
 

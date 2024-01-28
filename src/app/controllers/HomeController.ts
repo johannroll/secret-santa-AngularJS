@@ -818,16 +818,18 @@ export class HomeController {
                                     Send
                                 </md-tooltip>
                             </md-button>
-                            <md-button flex class="md-icon-button" ng-click="showConfirmAndDownloadOldList()">
+                            <md-button class="md-icon-button" ng-click="showConfirmAndDownloadOldList()">
                             <md-icon>download_for_offline</md-icon>
                             <md-tooltip md-direction="top">
                                 Download
                             </md-tooltip>
                         </md-button>
                             <md-button ng-click="showConfirmAndDeleteList()">
-                                Delete
+                                <md-icon>delete</md-icon>
+                                <md-tooltip md-direction="top">
+                                Download
+                                </md-tooltip>
                             </md-button>
-                            <span flex></span>
                                 <md-button ng-click="closeDialog()">
                                 Ok
                             </md-button>

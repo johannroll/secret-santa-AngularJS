@@ -201,6 +201,7 @@ md-sidenav md-list {
 .login-card {
   max-width: 400px;
   min-width: 300px;
+  margin-bottom: 2rem;
 }
 
 .submit-btn {
@@ -318,7 +319,7 @@ span.name {
 
   .days-till-christmas {
     font-size: 1.6rem;
-    margin-top: 0rem;
+    margin-top: -4rem;
   }
 
 }
@@ -398,7 +399,7 @@ md-input-container .add-names {
 
 @media screen and (max-width: 500px) {
   .clear-btn {
-    margin-bottom: 10rem;
+    margin-bottom: 16rem;
   }
 }
 
@@ -490,6 +491,7 @@ md-input-container .add-names {
   top: 5%;
   left: 50%;
   transform: translate(-50%, 0%);
+  -webkit-filter: drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
   filter: drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
 }
 
@@ -497,6 +499,7 @@ md-input-container .add-names {
   background: rgb(14, 121, 55);
   width: 700px;
   aspect-ratio: 1;
+  -webkit-clip-path: polygon(93.30% 75.00%, 6.70% 75.00%, 50.00% 0.00%);
   clip-path: polygon(93.30% 75.00%,6.70% 75.00%,50.00% 0.00%);
   
 

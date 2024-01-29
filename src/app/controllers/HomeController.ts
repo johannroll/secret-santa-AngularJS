@@ -636,7 +636,7 @@ export class HomeController {
                             </div>
                         </div>
                         <md-list flex class="santa-dialog">
-                            <md-list-item class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-tap="enableEditing($index)">
+                            <md-list-item class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
                         
                                 <div ng-hide="santa.editing">
                                     <div layout="row"  class="list-scroll" >

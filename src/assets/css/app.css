@@ -565,6 +565,10 @@ md-input-container .add-names {
   overflow-x: auto !important;
 }
 
+md-list-item.md-2-line:hover {
+  background-color: transparent !important;
+}
+
 .list-scroll {
     display: flex !important; /* Use flex layout for the row */
     overflow-x: auto !important; /* Enable horizontal scrolling */

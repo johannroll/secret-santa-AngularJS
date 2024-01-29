@@ -310,13 +310,14 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         AuthService.updatePerson(editedItem)
         .then(function(res: any) {
             console.log('person update: ',res);
+            $scope.dataArray[index].editing = false;
         })
         .catch(function(error:any) {
             console.log("person update: ",error);
+            ToastService.showToast('Something went wrong');
         })
 
 
-        $scope.dataArray[index].editing = false;
     }
     
     $scope.cancelEdit = function(index: number) {
@@ -345,11 +346,12 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         AuthService.updateListName(title.listId, title.title)
         .then(function(res:any) {
             console.log('oldListNameUpdated: ', res);
+            $scope.editMatchedListName = false;
         })
         .catch(function(error:any) {
             console.log("oldListNameUpdated: ", error);
+            ToastService.showToast('Something went wrong');
         })
-        $scope.editMatchedListName = false;
     }
 
     $scope.cancelEditListName = function() {

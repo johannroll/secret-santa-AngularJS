@@ -571,7 +571,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
 
   authService.updateListName = function(listId: number, updatedListName: string) {
     return $http
-      .post('https://secretsantaapi.azurewebsites.net/api/GiftList/updatelist/' + listId, { 
+      .put('https://secretsantaapi.azurewebsites.net/api/GiftList/updatelist/' + listId, { 
         listId: 0,
         title: updatedListName,
         userId: 0
@@ -587,7 +587,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
 
   authService.updatePerson = function(person: any) {
     return $http
-      .post('https://secretsantaapi.azurewebsites.net/api/Person/update/' + person.personId, { 
+      .put('https://secretsantaapi.azurewebsites.net/api/Person/update/' + person.personId, { 
         personId: 0,
         name: person.name,
         email: person.email 

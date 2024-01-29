@@ -410,7 +410,6 @@ md-input-container .add-names {
 .santa-editing {
   padding-top: 15px;
   padding-left: 8px;
-  width:fit-content !important;
   overflow-x: auto !important;
   background-color: #686a6f !important;
  

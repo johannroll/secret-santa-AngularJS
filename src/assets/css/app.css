@@ -616,9 +616,9 @@ md-list-item.md-2-line:hover {
 
 .my-toast {
   height: 150px;
-  top: 50% !important; 
+ 
   left: 50% !important; 
-  transform: translate(-50%, -50%) !important; 
+  
   max-width: 350px;
 }
 

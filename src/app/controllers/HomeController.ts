@@ -655,9 +655,9 @@ export class HomeController {
                                 </div>
                                 
                                
-                                <div class="santa-editing" ng-show="santa.editing" layout="column">
+                                <div class="santa-editing" ng-show="santa.editing">
                                                 <!-- Edit view -->
-                                    <form name="editForm_{{$index}}">
+                                    <form name="editForm_{{$index}}" layout="column">
                                         <div layout="row">
                                             <md-input-container class="md-inline">
                                                 <input type="text" ng-model="santa.giver.name" name="giverName" required placeholder="Giver Name"  />

@@ -308,6 +308,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         var editedItem =  $scope.dataArray[index];
         console.log('old list updated item: ', editedItem);
 
+        $scope.dataArray[index].editing = false;
     }
     
     $scope.cancelEdit = function(index: number) {
@@ -841,16 +842,16 @@ export class HomeController {
                                             <form name="editForm_{{$index}}" layout="column">
                                                 <div layout="row">
                                                     <md-input-container class="md-inline">
-                                                        <input type="text" ng-model="person.name" name="giverName" required placeholder="Giver Name"  />
-                                                        <div ng-messages="['editForm_' + $index].giverName.$error">
+                                                        <input type="text" ng-model="person.name" name="name" required placeholder="Name"  />
+                                                        <div ng-messages="['editForm_' + $index].name.$error">
                                                             <div ng-message="required">Name is required.</div>
                                                             <div ng-message="minlength">Name too short</div>
                                                             <div ng-message="maxlength">Name too long</div>
                                                         </div>
                                                     </md-input-container>
                                                     <md-input-container class="md-inline">
-                                                        <input type="email" ng-model="person.email" name="giverEmail" required placeholder="Giver Email" ng-pattern="/^.+@.+\..+$/"  />
-                                                        <div ng-messages="['editForm_' + $index].giverEmail.$error">
+                                                        <input type="email" ng-model="person.email" name="email" required placeholder="Email" ng-pattern="/^.+@.+\..+$/"  />
+                                                        <div ng-messages="['editForm_' + $index].email.$error">
                                                             <div ng-message="required">Email is required.</div>
                                                             <div ng-message="email">Valid email required.</div>
                                                         </div>

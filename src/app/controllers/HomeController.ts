@@ -206,9 +206,13 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         })
         .catch(function (error:any) {
             console.log(error);
-            if (error.status !== 401) {
-                ToastService.showToast('Something went wrong: ', error.statusText)
+            if (error.status !== 401 || error.status !== 422) {
+                ToastService.showToast('Something went wrong please try again');
             }
+            if (error.status == 422) {
+                ToastService.showToast('List already exists');
+            }
+
         
         });                    
         
@@ -827,7 +831,7 @@ export class HomeController {
                             <md-button flex  class="md-icon-button" ng-click="showConfirmAndDeleteList()">
                                 <md-icon>delete</md-icon>
                                 <md-tooltip md-direction="top">
-                                Download
+                                Delete
                                 </md-tooltip>
                             </md-button>
                                 <md-button flex ng-click="closeDialog()">

@@ -303,6 +303,12 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         $scope.dataArray[index].editing = false;
        
     };
+
+    $scope.saveEditOldList = function(index : number) {
+        var editedItem =  $scope.dataArray[index];
+        console.log('old list updated item: ', editedItem);
+
+    }
     
     $scope.cancelEdit = function(index: number) {
         $scope.dataArray[index] = $scope.backup;
@@ -822,7 +828,7 @@ export class HomeController {
                                             <div class="cart-container">
                                                 <md-icon>output</md-icon>
                                             </div>
-                                            <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index)">
+                                            <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArray.length ? 0 : $index + 1)">
                                                 {{ person.giverGiftee }}
                                                 <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
                                             </div>
@@ -851,7 +857,7 @@ export class HomeController {
                                                     </md-input-container>
                                                 </div>
                                                 <div layout="row">
-                                                <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                                <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditOldList($index)">Save</md-button>
                                                 <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
                                                 </div>
                                             </form>

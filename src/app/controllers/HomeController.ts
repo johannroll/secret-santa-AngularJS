@@ -27,6 +27,19 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
 
     });
 
+    $scope.enableUpdatePersonOld = false;
+
+    $scope.$watch('myFormOld.$valid', function(newVal: any, oldVal: any) {
+        console.log('Form validity changed. New validity:', newVal );
+        if (newVal) {
+            $scope.enableUpdatePersonOld = true;
+        } else {
+            $scope.enableUpdatePersonOld = false;
+
+        }
+
+    });
+
     $scope.updatePeopleArray = function() {
         console.log('updated person: ', dataArray);
         var people = JSON.parse(localStorage.getItem('peopleOnList'));
@@ -374,6 +387,7 @@ interface ICustomScope extends angular.IScope {
     personName: string;
     personEmail: string;
     enableAdd: boolean;
+    enableOldAdd: boolean;
     people: Array<any>;
     listForm: any;
     santas: Array<any>;
@@ -825,7 +839,7 @@ export class HomeController {
                 template: 
                 `
                 <md-dialog aria-label="View List">
-                    <form name="myForm" novalidate ng-cloak>
+                    <form name="myFormOld" novalidate ng-cloak>
                         <md-content>
                             <md-dialog-content>
                                 <div class="md-dialog-content">
@@ -887,7 +901,7 @@ export class HomeController {
                                                         </md-input-container>
                                                     </div>
                                                     <div layout="row">
-                                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditOldList($index)">Save</md-button>
+                                                    <md-button ng-disabled="!enableUpdatePersonOld" class="listEdit-btn" ng-click="saveEditOldList($index)">Save</md-button>
                                                     <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
                                                     </div>
                                                 </form>

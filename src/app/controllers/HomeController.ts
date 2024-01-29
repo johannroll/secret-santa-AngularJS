@@ -733,25 +733,31 @@ export class HomeController {
                     </md-dialog-content>
                 
                     <md-dialog-actions layout="row">
-                    <md-button flex class="md-icon-button" ng-click="shareUnsavedList()">
-                    <md-icon>send</md-icon>
-                    <md-tooltip md-direction="top">
-                        Send and Save List
-                    </md-tooltip>
-                    </md-button>
-                    <md-button flex class="md-icon-button" ng-click="showConfirmAndDownload()">
-                        <md-icon>download_for_offline</md-icon>
-                        <md-tooltip md-direction="top">
-                            Download
-                        </md-tooltip>
-                    </md-button>
-                
-                    <md-button flex ng-click="closeDialog()">
-                        Close
-                        <md-tooltip md-direction="top" class="matched-close-tooltip">
-                            Lists are randomly generated, this list will be lost if closed
-                        </md-tooltip>
-                    </md-button>
+                        <div flex>
+                            <md-button class="md-icon-button" ng-click="shareUnsavedList()">
+                            <md-icon>send</md-icon>
+                            <md-tooltip md-direction="top">
+                                Send and Save List
+                            </md-tooltip>
+                            </md-button>
+                        </div>
+                        <div flex>
+                            <md-button class="md-icon-button" ng-click="showConfirmAndDownload()">
+                                <md-icon>download_for_offline</md-icon>
+                                <md-tooltip md-direction="top">
+                                    Download
+                                </md-tooltip>
+                            </md-button>
+                        </div>
+                    
+                        <div flex>
+                            <md-button ng-click="closeDialog()">
+                                Close
+                                <md-tooltip md-direction="top" class="matched-close-tooltip">
+                                    Lists are randomly generated, this list will be lost if closed
+                                </md-tooltip>
+                            </md-button>
+                        </div>
                     </md-dialog-actions>
                 </form>
                 </md-dialog>`,

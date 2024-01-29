@@ -317,7 +317,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
             ToastService.showToast('Something went wrong');
         })
 
-
+        $scope.dataArray[index].editing = false;
     }
     
     $scope.cancelEdit = function(index: number) {

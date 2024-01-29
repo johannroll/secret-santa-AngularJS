@@ -655,7 +655,7 @@ export class HomeController {
                                 </div>
                                 
                                
-                                <div flex class="santa-editing" ng-show="santa.editing" layout="column">
+                                <div flex="100" class="santa-editing" ng-show="santa.editing" layout="column">
                                                 <!-- Edit view -->
                                     <form name="editForm_{{$index}}" >
                                         <div layout="row">

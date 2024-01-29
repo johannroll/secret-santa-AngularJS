@@ -792,110 +792,74 @@ export class HomeController {
                 <md-dialog aria-label="View List">
                     <md-content>
                         <md-dialog-content>
-                            <h2><span class="cursor-pointer" ng-click="editMatchedTitle()">
-                                {{ title.title }}
-                                <md-tooltip md-direction="top">
-                                    Edit list name
-                                </md-tooltip>
-                                </span> 
-                                Secret Santas
-                            </h2>
-                            <div ng-show="editMatchedListName">
-                                <md-input-container class="md-inline">
-                                    <input type="text" ng-model="title.title" name="matchedListName" required placeholder="List Name"  />
-                                </md-input-container>
-                                <div layout="row">
-                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditListName()">Save</md-button>
-                                    <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
-                                </div>
-                            </div>
-                            <div flex class="santa-dialog">
-                                <div md-no-ink class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
-                            
-                            
-                                    <div ng-hide="santa.editing" layout="row">
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap">
-                                            {{ person.name }}
-                                            <p>{{person.email}}</p>
-                                        </div> 
-                                        <div class="cart-container">
-                                            <md-icon>output</md-icon>
-                                        </div>
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap">
-                                            {{ person.giverGiftee }}
-                                            <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
-                                        </div>
-                                    </div>
-                                
-                                    
-                                
-                                    <div flex class="santa-editing" ng-show="santa.editing">
-                                                    <!-- Edit view -->
-                                        <form name="editForm_{{$index}}" layout="column">
-                                            <div layout="row">
-                                                <md-input-container class="md-inline">
-                                                    <input type="text" ng-model="santa.giver.name" name="giverName" required placeholder="Giver Name"  />
-                                                    <div ng-messages="['editForm_' + $index].giverName.$error">
-                                                        <div ng-message="required">Name is required.</div>
-                                                        <div ng-message="minlength">Name too short</div>
-                                                        <div ng-message="maxlength">Name too long</div>
-                                                    </div>
-                                                </md-input-container>
-                                                <md-input-container class="md-inline">
-                                                    <input type="email" ng-model="santa.giver.email" name="giverEmail" required placeholder="Giver Email" ng-pattern="/^.+@.+\..+$/"  />
-                                                    <div ng-messages="['editForm_' + $index].giverEmail.$error">
-                                                        <div ng-message="required">Email is required.</div>
-                                                        <div ng-message="email">Valid email required.</div>
-                                                    </div>
-                                                </md-input-container>
-                                            </div>
-                                            <div layout="row">
-                                                <md-input-container class="md-inline">
-                                                    <input type="text" ng-model="santa.giftee.name" name="gifteeName" required placeholder="Giftee Name" />
-                                                    <div ng-messages="['editForm_' + $index].gifteeName.$error">
-                                                        <div ng-message="required">Name is required.</div>
-                                                        <div ng-message="minlength">Name too short</div>
-                                                        <div ng-message="maxlength">Name too long</div>
-                                                    </div>
-                                                </md-input-container>
-                                                <md-input-container class="md-inline">
-                                                    <input type="email" ng-model="santa.giftee.email" name="gifteeEmail" required placeholder="Giftee Email" ng-pattern="/^.+@.+\..+$/" />
-                                                    <div ng-messages="['editForm_' + $index].gifteeEmail.$error">
-                                                        <div ng-message="required">Email is required.</div>
-                                                        <div ng-message="email">Valid email required.</div>
-                                                    </div>
-                                                </md-input-container>
-                                            </div>
-                                            <div layout="row">
-                                            <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
-                                            <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
-                                            </div>
-                                        </form>
-                                    </div>         
-                                </div>
-                            </div>
                             <div class="md-dialog-content">
-                                <h2>{{ title.title }} Secret Santas</h2>
-                                <md-list flex>
-                                    <md-list-item class="md-3-line" ng-repeat="person in dataArray" ng-click="null">
-                                    
+                                <h2><span class="cursor-pointer" ng-click="editMatchedTitle()">
+                                    {{ title.title }}
+                                    <md-tooltip md-direction="top">
+                                        Edit list name
+                                    </md-tooltip>
+                                    </span> 
+                                    Secret Santas
+                                </h2>
+                                <div ng-show="editMatchedListName">
+                                    <md-input-container class="md-inline">
+                                        <input type="text" ng-model="title.title" name="matchedListName" required placeholder="List Name"  />
+                                    </md-input-container>
                                     <div layout="row">
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap">
-                                            {{ person.name }}
-                                            <p>{{person.email}}</p>
-                                        </div> 
-                                        <div class="cart-container">
-                                            <md-icon>output</md-icon>
-                                        </div>
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap">
-                                            {{ person.giverGiftee }}
-                                            <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
-                                        </div>
+                                        <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditListName()">Save</md-button>
+                                        <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
                                     </div>
+                                </div>
+                                <div flex class="santa-dialog">
+                                    <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
+                                
+                                
+                                        <div ng-hide="santa.editing" layout="row">
+                                            <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index)">
+                                                {{ person.name }}
+                                                <p>{{person.email}}</p>
+                                            </div> 
+                                            <div class="cart-container">
+                                                <md-icon>output</md-icon>
+                                            </div>
+                                            <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index)">
+                                                {{ person.giverGiftee }}
+                                                <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
+                                            </div>
+                                        </div>
                                     
-                                    </md-list-item>
-                                </md-list>          
+                                        
+                                    
+                                        <div flex class="santa-editing" ng-show="santa.editing">
+                                                        <!-- Edit view -->
+                                            <form name="editForm_{{$index}}" layout="column">
+                                                <div layout="row">
+                                                    <md-input-container class="md-inline">
+                                                        <input type="text" ng-model="person.name" name="giverName" required placeholder="Giver Name"  />
+                                                        <div ng-messages="['editForm_' + $index].giverName.$error">
+                                                            <div ng-message="required">Name is required.</div>
+                                                            <div ng-message="minlength">Name too short</div>
+                                                            <div ng-message="maxlength">Name too long</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                    <md-input-container class="md-inline">
+                                                        <input type="email" ng-model="person.email" name="giverEmail" required placeholder="Giver Email" ng-pattern="/^.+@.+\..+$/"  />
+                                                        <div ng-messages="['editForm_' + $index].giverEmail.$error">
+                                                            <div ng-message="required">Email is required.</div>
+                                                            <div ng-message="email">Valid email required.</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+                                                <div layout="row">
+                                                <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                                <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
+                                                </div>
+                                            </form>
+                                        </div>         
+                                    </div>
+                                </div>
                             </div>
+                            
                         </md-dialog-content>
                         <md-dialog-actions layout="row">
                             <md-button flex  class="md-icon-button" ng-click="shareList()">

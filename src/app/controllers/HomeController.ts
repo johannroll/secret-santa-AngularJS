@@ -659,7 +659,7 @@ export class HomeController {
                                                 <!-- Edit view -->
                                     <form name="editForm_{{$index}}" >
                                         <div flex=""100 layout="row">
-                                            <md-input-container class="md-inline">
+                                            <md-input-container class="md-block">
                                                 <input type="text" ng-model="santa.giver.name" name="giverName" required placeholder="Giver Name"  />
                                                 <div ng-messages="['editForm_' + $index].giverName.$error">
                                                     <div ng-message="required">Name is required.</div>
@@ -667,7 +667,7 @@ export class HomeController {
                                                     <div ng-message="maxlength">Name too long</div>
                                                 </div>
                                             </md-input-container>
-                                            <md-input-container class="md-inline">
+                                            <md-input-container class="md-block">
                                                 <input type="email" ng-model="santa.giver.email" name="giverEmail" required placeholder="Giver Email" ng-pattern="/^.+@.+\..+$/"  />
                                                 <div ng-messages="['editForm_' + $index].giverEmail.$error">
                                                     <div ng-message="required">Email is required.</div>
@@ -676,7 +676,7 @@ export class HomeController {
                                             </md-input-container>
                                         </div>
                                         <div flex="100" layout="row">
-                                            <md-input-container class="md-inline">
+                                            <md-input-container class="md-block">
                                                 <input type="text" ng-model="santa.giftee.name" name="gifteeName" required placeholder="Giftee Name" />
                                                 <div ng-messages="['editForm_' + $index].gifteeName.$error">
                                                     <div ng-message="required">Name is required.</div>
@@ -684,7 +684,7 @@ export class HomeController {
                                                     <div ng-message="maxlength">Name too long</div>
                                                 </div>
                                             </md-input-container>
-                                            <md-input-container class="md-inline">
+                                            <md-input-container class="md-block">
                                                 <input type="email" ng-model="santa.giftee.email" name="gifteeEmail" required placeholder="Giftee Email" ng-pattern="/^.+@.+\..+$/" />
                                                 <div ng-messages="['editForm_' + $index].gifteeEmail.$error">
                                                     <div ng-message="required">Email is required.</div>

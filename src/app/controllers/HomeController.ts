@@ -342,7 +342,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
 
     $scope.saveEditOldListName = function() {
         console.log('EditOldListName: ', title);
-        AuthService.updatedListName(title.listId, title.title)
+        AuthService.updateListName(title.listId, title.title)
         .then(function(res:any) {
             console.log('oldListNameUpdated: ', res);
         })

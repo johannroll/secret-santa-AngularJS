@@ -560,6 +560,11 @@ md-input-container .add-names {
   width: 100%;
 }
 
+.santa-list-item {
+  width: fit-content !important;
+  overflow-x: auto !important;
+}
+
 .list-scroll {
     display: flex !important; /* Use flex layout for the row */
     overflow-x: auto !important; /* Enable horizontal scrolling */

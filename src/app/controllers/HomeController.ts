@@ -655,10 +655,10 @@ export class HomeController {
                                 </div>
                                 
                                
-                                <div flex="100" class="santa-editing" ng-show="santa.editing" layout="column">
+                                <div class="santa-editing" ng-show="santa.editing" layout="column">
                                                 <!-- Edit view -->
                                     <form name="editForm_{{$index}}" >
-                                        <div layout="row">
+                                        <div flex=""100 layout="row">
                                             <md-input-container class="md-inline">
                                                 <input type="text" ng-model="santa.giver.name" name="giverName" required placeholder="Giver Name"  />
                                                 <div ng-messages="['editForm_' + $index].giverName.$error">
@@ -675,7 +675,7 @@ export class HomeController {
                                                 </div>
                                             </md-input-container>
                                         </div>
-                                        <div layout="row">
+                                        <div flex="100" layout="row">
                                             <md-input-container class="md-inline">
                                                 <input type="text" ng-model="santa.giftee.name" name="gifteeName" required placeholder="Giftee Name" />
                                                 <div ng-messages="['editForm_' + $index].gifteeName.$error">
@@ -692,7 +692,7 @@ export class HomeController {
                                                 </div>
                                             </md-input-container>
                                         </div>
-                                        <div layout="row">
+                                        <div flex="100" layout="row">
                                         <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
                                         <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
                                         </div>

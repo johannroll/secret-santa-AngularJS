@@ -1,7 +1,7 @@
 import * as angular from 'angular';
 import { setInterval } from 'timers/promises';
 
-function DialogController($scope : any, $mdDialog : any, dataArray: any, title: any, AuthService: any, ToastService: any, $rootScope: any,$timeout: any) {
+function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArrayOld: any, title: any, AuthService: any, ToastService: any, $rootScope: any,$timeout: any) {
     $scope.dataArray = dataArray;
     $scope.title = title;
     $scope.listItem = {
@@ -277,7 +277,21 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         $scope.peopleBackup = angular.copy($rootScope.people); // backup to revert changes if canceled
     };
 
+    $scope.enableEditingOld = function(index: number) {
+        $scope.dataArrayOld[index].editing = true;
+        $scope.backupOld = angular.copy($scope.dataArrayOld[index]);
+        $scope.peopleEdit = angular.copy($scope.dataArrayOld[index]);
+        $scope.fullBackupOld = angular.copy($scope.dataArrayOld);
+        $scope.peopleBackupOld = angular.copy($rootScope.peopleOld); // backup to revert changes if canceled
+    };
+
     $scope.isDuplicate = function(editedItem: any, index: number) {
+        return $scope.dataArray.some((item: any, idx: any) => {
+            return idx !== index && angular.equals(item, editedItem);
+        });
+    };
+
+    $scope.isDuplicateOld = function(editedItem: any, index: number) {
         return $scope.dataArray.some((item: any, idx: any) => {
             return idx !== index && angular.equals(item, editedItem);
         });
@@ -318,26 +332,33 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     };
 
     $scope.saveEditOldList = function(index : number) {
-        var editedItem =  $scope.dataArray[index];
+        var editedItem =  $scope.dataArrayOld[index];
         console.log('old list updated item: ', editedItem);
         AuthService.updatePerson(editedItem)
         .then(function(res: any) {
             console.log('person update: ',res);
-            $scope.dataArray[index].editing = false;
+            $scope.dataArrayOld[index].editing = false;
         })
         .catch(function(error:any) {
             console.log("person update: ",error);
             ToastService.showToast('Something went wrong');
         })
 
-        $scope.dataArray[index].editing = false;
+        $scope.dataArrayOld[index].editing = false;
     }
     
     $scope.cancelEdit = function(index: number) {
         $scope.dataArray[index] = $scope.backup;
-        $rootScope.people = $scope.peopleBackup;
+        $rootScope.peopleOld = $scope.peopleBackup;
         $scope.dataArray[index].editing = false;
         $scope.dataArray = $scope.fullBackup;
+    };
+
+    $scope.cancelEditOld = function(index: number) {
+        $scope.dataArrayOld[index] = $scope.backupOld;
+        $rootScope.peopleOld = $scope.peopleBackupOld;
+        $scope.dataArrayOld[index].editing = false;
+        $scope.dataArrayOld = $scope.fullBackupOld;
     };
 
     $scope.editMatchedListName = false;
@@ -780,6 +801,7 @@ export class HomeController {
                 controller: DialogController,
                 locals: {
                 dataArray: this.$rootScope.santas,
+                dataArrayOld: [],
                 title: this.$scope.listForm.listName
                 }
             });
@@ -861,7 +883,7 @@ export class HomeController {
                                         </div>
                                     </div>
                                     <div flex class="santa-dialog">
-                                        <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
+                                        <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArrayOld">
                                     
                                     
                                             <div ng-hide="person.editing" layout="row">
@@ -872,9 +894,9 @@ export class HomeController {
                                                 <div class="cart-container">
                                                     <md-icon>output</md-icon>
                                                 </div>
-                                                <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArray.length ? 0 : $index + 1)">
+                                                <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArrayOld.length ? 0 : $index + 1)">
                                                     {{ person.giverGiftee }}
-                                                    <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
+                                                    <p>{{ ($index + 1) === dataArrayOld.length ? dataArrayOld[0].email : dataArrayOld[$index + 1].email }}</p>
                                                 </div>
                                             </div>
                                         
@@ -902,7 +924,7 @@ export class HomeController {
                                                     </div>
                                                     <div layout="row">
                                                     <md-button ng-disabled="!enableUpdatePersonOld" class="listEdit-btn" ng-click="saveEditOldList($index)">Save</md-button>
-                                                    <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
+                                                    <md-button class="listEdit-btn" ng-click="cancelEditOld($index)">Cancel</md-button>
                                                     </div>
                                                 </form>
                                             </div>         
@@ -943,7 +965,8 @@ export class HomeController {
                 controller: DialogController,
                 locals: {
                     title: list,
-                    dataArray: people,
+                    dataArray: [],
+                    dataArrayOld: people
                 }
             })
         } catch (error:any) {

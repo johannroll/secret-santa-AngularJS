@@ -792,24 +792,41 @@ export class HomeController {
                 <md-dialog aria-label="View List">
                     <md-content>
                         <md-dialog-content>
+                            <h2><span class="cursor-pointer" ng-click="editMatchedTitle()">
+                                {{ title.title }}
+                                <md-tooltip md-direction="top">
+                                    Edit list name
+                                </md-tooltip>
+                                </span> 
+                                Secret Santas
+                            </h2>
+                            <div ng-show="editMatchedListName">
+                                <md-input-container class="md-inline">
+                                    <input type="text" ng-model="title.title" name="matchedListName" required placeholder="List Name"  />
+                                </md-input-container>
+                                <div layout="row">
+                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditListName()">Save</md-button>
+                                    <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
+                                </div>
+                            </div>
                             <div flex class="santa-dialog">
                                 <div md-no-ink class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
                             
-                                    <div ng-hide="santa.editing">
-                                        <div layout="row"  class="list-scroll" >
-                                            <div flex class="md-list-item-text word-wrap">
-                                                {{ santa.giver.name }}
-                                                <p>{{ santa.giver.email }}</p>
-                                            </div> 
-                                            <div class="cart-container">
-                                                <md-icon>output</md-icon>
-                                            </div>
-                                            <div flex class="md-list-item-text word-wrap">
-                                                {{ santa.giftee.name }}
-                                                <p>{{ santa.giftee.email }}</p>
-                                            </div>
+                            
+                                    <div ng-hide="santa.editing" layout="row">
+                                        <div flex style="width: 150px" class="md-list-item-text word-wrap">
+                                            {{ person.name }}
+                                            <p>{{person.email}}</p>
+                                        </div> 
+                                        <div class="cart-container">
+                                            <md-icon>output</md-icon>
+                                        </div>
+                                        <div flex style="width: 150px" class="md-list-item-text word-wrap">
+                                            {{ person.giverGiftee }}
+                                            <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
                                         </div>
                                     </div>
+                                
                                     
                                 
                                     <div flex class="santa-editing" ng-show="santa.editing">

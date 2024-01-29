@@ -814,7 +814,7 @@ export class HomeController {
                                     <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
                                 
                                 
-                                        <div ng-hide="santa.editing" layout="row">
+                                        <div ng-hide="person.editing" layout="row">
                                             <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index)">
                                                 {{ person.name }}
                                                 <p>{{person.email}}</p>
@@ -830,7 +830,7 @@ export class HomeController {
                                     
                                         
                                     
-                                        <div flex class="santa-editing" ng-show="santa.editing">
+                                        <div flex class="santa-editing" ng-show="person.editing">
                                                         <!-- Edit view -->
                                             <form name="editForm_{{$index}}" layout="column">
                                                 <div layout="row">

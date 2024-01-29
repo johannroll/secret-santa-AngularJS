@@ -409,13 +409,15 @@ md-input-container .add-names {
 
 .santa-editing {
   padding-top: 15px;
-  width: 100% !important;
+  min-width: 100% !important;
+  overflow-x: auto !important;
  
 }
 
 .matched-close-tooltip {
   max-width: 300px !important;
-  word-wrap: break-word;
+  overflow: hidden !important;
+  word-wrap: break-word !important;
 }
 
 md-list-item .md-no-style.md-button {
@@ -470,7 +472,6 @@ md-list-item .md-no-style.md-button {
   padding: 5px 35px ;
   margin-bottom: 4rem;
   width: 200px;
-  color: var(--theme);
 }
 
 .pattern {

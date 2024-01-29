@@ -635,8 +635,8 @@ export class HomeController {
                                 <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
                             </div>
                         </div>
-                        <md-list flex class="santa-dialog">
-                            <md-list-item md-no-ink class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
+                        <div flex class="santa-dialog">
+                            <div md-no-ink class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
                         
                                 <div ng-hide="santa.editing">
                                     <div layout="row"  class="list-scroll" >
@@ -699,8 +699,8 @@ export class HomeController {
                                     </form>
                                 </div>
                                        
-                            </md-list-item>
-                        </md-list>
+                            </div>
+                        </div>
                     </md-dialog-content>
                 
                     <md-dialog-actions layout="row">

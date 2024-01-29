@@ -655,9 +655,9 @@ export class HomeController {
                                 </div>
                                 
                                
-                                <div flex class="santa-editing" ng-show="santa.editing">
+                                <div flex class="santa-editing" ng-show="santa.editing" layout="column">
                                                 <!-- Edit view -->
-                                    <form name="editForm_{{$index}}" layout="column">
+                                    <form name="editForm_{{$index}}" >
                                         <div layout="row">
                                             <md-input-container class="md-inline">
                                                 <input type="text" ng-model="santa.giver.name" name="giverName" required placeholder="Giver Name"  />
@@ -792,6 +792,71 @@ export class HomeController {
                 <md-dialog aria-label="View List">
                     <md-content>
                         <md-dialog-content>
+                            <div flex class="santa-dialog">
+                                <div md-no-ink class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
+                            
+                                    <div ng-hide="santa.editing">
+                                        <div layout="row"  class="list-scroll" >
+                                            <div flex class="md-list-item-text word-wrap">
+                                                {{ santa.giver.name }}
+                                                <p>{{ santa.giver.email }}</p>
+                                            </div> 
+                                            <div class="cart-container">
+                                                <md-icon>output</md-icon>
+                                            </div>
+                                            <div flex class="md-list-item-text word-wrap">
+                                                {{ santa.giftee.name }}
+                                                <p>{{ santa.giftee.email }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                
+                                    <div flex class="santa-editing" ng-show="santa.editing">
+                                                    <!-- Edit view -->
+                                        <form name="editForm_{{$index}}" layout="column">
+                                            <div layout="row">
+                                                <md-input-container class="md-inline">
+                                                    <input type="text" ng-model="santa.giver.name" name="giverName" required placeholder="Giver Name"  />
+                                                    <div ng-messages="['editForm_' + $index].giverName.$error">
+                                                        <div ng-message="required">Name is required.</div>
+                                                        <div ng-message="minlength">Name too short</div>
+                                                        <div ng-message="maxlength">Name too long</div>
+                                                    </div>
+                                                </md-input-container>
+                                                <md-input-container class="md-inline">
+                                                    <input type="email" ng-model="santa.giver.email" name="giverEmail" required placeholder="Giver Email" ng-pattern="/^.+@.+\..+$/"  />
+                                                    <div ng-messages="['editForm_' + $index].giverEmail.$error">
+                                                        <div ng-message="required">Email is required.</div>
+                                                        <div ng-message="email">Valid email required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+                                            <div layout="row">
+                                                <md-input-container class="md-inline">
+                                                    <input type="text" ng-model="santa.giftee.name" name="gifteeName" required placeholder="Giftee Name" />
+                                                    <div ng-messages="['editForm_' + $index].gifteeName.$error">
+                                                        <div ng-message="required">Name is required.</div>
+                                                        <div ng-message="minlength">Name too short</div>
+                                                        <div ng-message="maxlength">Name too long</div>
+                                                    </div>
+                                                </md-input-container>
+                                                <md-input-container class="md-inline">
+                                                    <input type="email" ng-model="santa.giftee.email" name="gifteeEmail" required placeholder="Giftee Email" ng-pattern="/^.+@.+\..+$/" />
+                                                    <div ng-messages="['editForm_' + $index].gifteeEmail.$error">
+                                                        <div ng-message="required">Email is required.</div>
+                                                        <div ng-message="email">Valid email required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+                                            <div layout="row">
+                                            <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                            <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
+                                            </div>
+                                        </form>
+                                    </div>         
+                                </div>
+                            </div>
                             <div class="md-dialog-content">
                                 <h2>{{ title.title }} Secret Santas</h2>
                                 <md-list flex>

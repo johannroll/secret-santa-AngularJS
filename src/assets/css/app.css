@@ -319,7 +319,7 @@ span.name {
 
   .days-till-christmas {
     font-size: 1.6rem;
-    margin-top: -4.2rem;
+    margin-top: -3.8rem;
   }
 
 }
@@ -484,8 +484,8 @@ md-input-container .add-names {
   top: 5%;
   left: 50%;
   transform: translate(-50%, 0%);
-  -webkit-filter: hue-rotate(0deg) drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
-  filter: hue-rotate(0deg) drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
+  filter: drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
+  -webkit-filter: drop-shadow(10px 10px 60px #fa159e) drop-shadow(-10px -10px 30px #fccc47);
 }
 
 .triangle {
@@ -494,6 +494,7 @@ md-input-container .add-names {
   aspect-ratio: 1;
   clip-path: polygon(93.30% 75.00%,6.70% 75.00%,50.00% 0.00%);
   -webkit-clip-path: polygon(93.30% 75.00%, 6.70% 75.00%, 50.00% 0.00%);
+  overflow: visible;
   
   
 }

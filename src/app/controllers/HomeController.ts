@@ -159,7 +159,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         .catch(function (error:any) {
             console.log(error);
             if (error.status !== 401) {
-                ToastService.showToast('Something went wrong: ', error.statusText)
+                ToastService.showToast('List already exists');
             }
         
         });
@@ -636,7 +636,7 @@ export class HomeController {
                             </div>
                         </div>
                         <md-list flex class="santa-dialog">
-                            <md-list-item class="md-2-line" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
+                            <md-list-item class="md-2-line" ng-repeat="santa in dataArray" ng-tap="enableEditing($index)">
                         
                                 <div ng-hide="santa.editing">
                                     <div layout="row"  class="list-scroll" >

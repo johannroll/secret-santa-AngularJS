@@ -4,6 +4,7 @@ import 'angular-animate';
 import 'angular-aria';
 import 'angular-material';
 import 'angular-messages';
+import 'angular-touch';
 
 import '../assets/css/app.css';
 
@@ -14,7 +15,7 @@ import { PasswordController } from './controllers/PasswordController';
 import { ResetPasswordController } from './controllers/ResetPasswordController';
 
 
-const app = angular.module('myApp', ['ngMaterial','ngRoute','ngAnimate','ngMessages']);
+const app = angular.module('myApp', ['ngMaterial','ngRoute','ngAnimate','ngMessages', 'ngTouch']);
 
 app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $timeout, $mdDialog, $rootScope, $mdMenu, $document, $window, $mdMedia, AuthService, LoadingService, ToastService) {
   $scope.myInitFunction = function() {
@@ -458,8 +459,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
       })
       .catch(function (error) {
         console.error('Error getting request', error);
-        // Handle the error as needed
-        // For example, you can return a rejected promise or a specific error message
+       
         return $q.reject(error);
       });
   };
@@ -473,8 +473,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
       })
       .catch(function (error) {
         console.error('Error getting request', error);
-        // Handle the error as needed
-        // For example, you can return a rejected promise or a specific error message
+      
         return $q.reject(error);
       });
   };

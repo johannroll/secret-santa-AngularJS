@@ -409,15 +409,18 @@ md-input-container .add-names {
 
 .santa-editing {
   padding-top: 15px;
-  width: 100%;
-  
+  width: 100% !important;
  
 }
 
 .matched-close-tooltip {
   max-width: 300px !important;
+  word-wrap: break-word;
 }
 
+md-list-item .md-no-style.md-button {
+  transition: none !important;
+}
 
 .names-list {
   width: 280px;

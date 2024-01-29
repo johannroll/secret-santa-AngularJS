@@ -307,6 +307,14 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     $scope.saveEditOldList = function(index : number) {
         var editedItem =  $scope.dataArray[index];
         console.log('old list updated item: ', editedItem);
+        AuthService.updatePerson(editedItem)
+        .then(function(res: any) {
+            console.log('person update: ',res);
+        })
+        .catch(function(error:any) {
+            console.log("person update: ",error);
+        })
+
 
         $scope.dataArray[index].editing = false;
     }
@@ -329,6 +337,11 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
 
     $scope.saveEditListName = function() {
         localStorage.setItem('currentList', JSON.stringify($scope.title));
+        $scope.editMatchedListName = false;
+    }
+
+    $scope.saveEditOldListName = function() {
+        console.log('EditOldListName: ', title);
         $scope.editMatchedListName = false;
     }
 
@@ -814,7 +827,7 @@ export class HomeController {
                                             <input type="text" ng-model="title.title" name="matchedListName" required placeholder="List Name"  />
                                         </md-input-container>
                                         <div layout="row">
-                                            <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditListName()">Save</md-button>
+                                            <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditOldListName()">Save</md-button>
                                             <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
                                         </div>
                                     </div>

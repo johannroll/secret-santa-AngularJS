@@ -636,7 +636,7 @@ export class HomeController {
                             </div>
                         </div>
                         <md-list flex class="santa-dialog">
-                            <md-list-item class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
+                            <md-list-item md-no-ink class="md-2-line santa-list-item" ng-repeat="santa in dataArray" ng-click="enableEditing($index)">
                         
                                 <div ng-hide="santa.editing">
                                     <div layout="row"  class="list-scroll" >
@@ -719,7 +719,7 @@ export class HomeController {
                 
                     <md-button flex ng-click="closeDialog()">
                         Close
-                        <md-tooltip md-direction="top">
+                        <md-tooltip md-direction="top" class="matched-close-tooltip">
                             Lists are randomly generated, this list will be lost if closed
                         </md-tooltip>
                     </md-button>

@@ -409,8 +409,13 @@ md-input-container .add-names {
 
 .santa-editing {
   padding-top: 15px;
+  width: 100%;
   
  
+}
+
+.matched-close-tooltip {
+  max-width: 300px !important;
 }
 
 
@@ -459,9 +464,10 @@ md-input-container .add-names {
 }
 
 .match-btn {
-  padding: 10px 35px ;
+  padding: 5px 35px ;
   margin-bottom: 4rem;
   width: 200px;
+  color: var(--theme);
 }
 
 .pattern {

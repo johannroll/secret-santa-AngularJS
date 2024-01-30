@@ -676,7 +676,8 @@ export class HomeController {
     }
 
     async matchSantas(ev: any) {
-       
+        try {
+
             this.$rootScope.santas = this.secretSanta(this.$rootScope.people);
             var saveList = await this.AuthService.saveList(this.$scope.listForm.listName,  this.$rootScope.santas);
             this.$rootScope.peoplonFetchedList = await this.AuthService.getList(saveList.listId)
@@ -795,6 +796,13 @@ export class HomeController {
                 title: this.$scope.listForm.listName
                 }
             });
+        } catch(error) {
+            if (error.status === 500) {
+                this.ToastService.showToast('Something went wrong please try again')
+            } else {
+                this.ToastService.showToast('List already exists');
+            }
+        }
     
     }
 

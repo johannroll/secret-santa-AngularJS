@@ -492,6 +492,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
     try {
         var response = await this.createList(listName)
         $rootScope.matchedListId = response;
+        console.log("matchedListId: ", $rootScope.matchedListId);
       }
       catch (error:any) {
         return $q.reject(error);

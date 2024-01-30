@@ -1,10 +1,9 @@
 import * as angular from 'angular';
 import { setInterval } from 'timers/promises';
 
-function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArrayOld: any, title: any, AuthService: any, ToastService: any, $rootScope: any,$timeout: any) {
+function DialogController($scope : any, $mdDialog : any, dataArray: any, title: any, AuthService: any, ToastService: any, $rootScope: any,$timeout: any) {
     $scope.dataArray = dataArray;
     console.log("dataArray: ", $scope.dataArray);
-    $scope.dataArrayOld = dataArrayOld;
     $scope.title = title;
     $scope.listItem = {
         index: null,
@@ -77,25 +76,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
       doc.setFontSize(12);
       console.log('from saved lists downlaod: ', dataArray);
       dataArray.forEach((pair: any, index : any) => {
-        doc.text(`${pair.giver.name} gives a gift to ${pair.giftee.name}`, 10, 20 + (10 * index));
-      });
-  
-      // Save the PDF
-      doc.save('secret-santa-list.pdf');
-    };
-
-    $scope.downloadOldSecretSantaList = function() {
-    
-      const { jsPDF } = (window as any).jspdf;
-      const doc = new jsPDF();
-  
-      // Title
-      doc.text('Secret Santa List', 10, 10);
-  
-      // Add each pair to the PDF
-      doc.setFontSize(12);
-      console.log('from saved lists downlaod: ', dataArray);
-      dataArray.forEach((pair: any, index : any) => {
         doc.text(`${pair.name} gives a gift to ${pair.giverGiftee}`, 10, 20 + (10 * index));
       });
   
@@ -114,29 +94,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
   
       $mdDialog.show(confirm).then(function () {
         $scope.downloadSecretSantaList();
-        $scope.saveList()
-        .then((res:any) => {
-            console.log('list saved');
-        })
-        .catch((error:any) => {
-            ToastService.showToast('Something went wrong');
-        });
-      }, function () {
-        $scope.status = 'Download canceled.';
-      });
-    };
-
-    $scope.showConfirmAndDownloadOldList = function() {
-      var confirm = $mdDialog.confirm()
-        .theme(localStorage.getItem('theme'))
-        .title('Would you like to download your list?')
-        .textContent('This will download the file to your device.')
-        .ariaLabel('Lucky day')
-        .ok('Download')
-        .cancel('Cancel');
-  
-      $mdDialog.show(confirm).then(function () {
-        $scope.downloadOldSecretSantaList()
       }, function () {
         $scope.status = 'Download canceled.';
       });
@@ -166,9 +123,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
             localStorage.removeItem('peopleOnList');
             $rootScope.$broadcast('listSaved');
             $mdDialog.hide();
-            setTimeout(function() {
-                ToastService.showToast('List Saved');
-            },200)
+           
 
         })
         .catch(function (error:any) {
@@ -200,12 +155,13 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
         });
     };
 
-    $scope.shareUnsavedList = function() {
-        console.log('dataArray after edi: ' ,this.dataArray);
-        AuthService.saveListAndEmail(this.title, this.dataArray).
-        then(function (res: any) {
-            $mdDialog.hide();
-            $rootScope.$broadcast('sharedUnsavedList')
+
+    $scope.shareList = function() {
+        console.log('list to send:', this.title);
+        $mdDialog.hide();
+        AuthService.sendList($rootScope.matchedListId.listId)
+        .then(function(res: any) {
+            console.log(res);
             var confirm = $mdDialog.alert()
             .theme(localStorage.getItem('theme'))
             .title('List Shared')
@@ -217,27 +173,10 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
             $mdDialog.show(confirm).then(function () {
                 $mdDialog.hide();
             })
-
         })
-        .catch(function (error:any) {
-            console.log(error);
-            
-            if (error.status == 422) {
-                ToastService.showToast('List already exists');
-            } else {
-                ToastService.showToast('Something went wrong please try again');
-            }
+    }
 
-        
-        });                    
-        
-                                    
-         
-       
-       
-    };
-
-    $scope.shareList = function() {
+    $scope.shareListOld = function() {
         console.log('list to send:', this.title);
         $mdDialog.hide();
         AuthService.sendList(this.title.listId)
@@ -280,69 +219,20 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
         $scope.peopleBackup = angular.copy($rootScope.people); // backup to revert changes if canceled
     };
 
-    $scope.enableEditingOld = function(index: number) {
-        $scope.dataArrayOld[index].editing = true;
-        $scope.backupOld = angular.copy($scope.dataArrayOld[index]);
-        $scope.peopleEdit = angular.copy($scope.dataArrayOld[index]);
-        $scope.fullBackupOld = angular.copy($scope.dataArrayOld);
-        $scope.peopleBackupOld = angular.copy($rootScope.peopleOnFetchedList); // backup to revert changes if canceled
-    };
-
     $scope.isDuplicate = function(editedItem: any, index: number) {
         return $scope.dataArray.some((item: any, idx: any) => {
             return idx !== index && angular.equals(item, editedItem);
         });
     };
 
-    $scope.isDuplicateOld = function(editedItem: any, index: number) {
-        return $scope.dataArray.some((item: any, idx: any) => {
-            return idx !== index && angular.equals(item, editedItem);
-        });
-    };
-    
-    $scope.saveEdit = function(index: number) {
+
+    $scope.saveEdit = function(index : number) {
         var editedItem =  $scope.dataArray[index];
-        if ($scope.isDuplicate(editedItem, index)) {
-            alert("Duplicate item detected. Please make different changes.");
-            // Optionally, revert to the backup
-            $scope.cancelEdit(index);
-            return;
-        }
-
-        var peopleOnList = JSON.parse(localStorage.getItem('peopleOnList'));
-        console.log('before', peopleOnList);
-        var  { giftee } = $scope.backup;
-        var  { giver } = $scope.backup;
-        var gifteeIndex = peopleOnList.findIndex((x:any) => x.name === giftee.name); 
-        var giverIndex = peopleOnList.findIndex((x:any) => x.name === giver.name); 
-        peopleOnList[gifteeIndex] = editedItem.giftee;
-        peopleOnList[giverIndex] = editedItem.giver;
-        localStorage.setItem('peopleOnList', JSON.stringify(peopleOnList));
-        
-        $rootScope.people = JSON.parse(localStorage.getItem('peopleOnList'));
-        for (var i = 0; i < $rootScope.santas.length; i++) {
-            if ($rootScope.santas[i].giftee.name === giftee.name) {
-                $rootScope.santas[i].giftee.name === editedItem.giftee.name;
-                $rootScope.santas[i].giftee.email === editedItem.giftee.email;
-            }
-            if ($rootScope.santas[i].giver.name === giver.name ) {
-                $rootScope.santas[i].giver.name === editedItem.giver.name;
-                $rootScope.santas[i].giver.email === editedItem.giver.email;
-            }
-        }
-
-        $scope.dataArray[index].editing = false;
-        console.log('editing: ',  $scope.dataArray[index].editing);
-       
-    };
-
-    $scope.saveEditOldList = function(index : number) {
-        var editedItem =  $scope.dataArrayOld[index];
         console.log('old list updated item: ', editedItem);
         AuthService.updatePerson(editedItem)
         .then(function(res: any) {
             console.log('person update: ',res);
-            $scope.dataArrayOld[index].editing = false;
+            $scope.dataArray[index].editing = false;
         })
         .catch(function(error:any) {
             console.log("person update: ",error);
@@ -359,18 +249,12 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
         $scope.dataArray = $scope.fullBackup;
     };
 
-    $scope.cancelEditOld = function(index: number) {
-        $scope.dataArrayOld[index] = $scope.backupOld;
-        $rootScope.peopleOld = $scope.peopleBackupOld;
-        $scope.dataArrayOld[index].editing = false;
-        $scope.dataArrayOld = $scope.fullBackupOld;
-    };
-
     $scope.editMatchedListName = false;
     $scope.titleCopy = '';
     
     $scope.editMatchedTitle = function() {
-        $scope.titleCopy = $scope.title;
+        $scope.listsCopy = angular.copy($rootScope.lists)
+        $scope.titleCopy = angular.copy($scope.title);
         console.log('Matched listName old: ', $scope.titleCopy);
         $scope.editMatchedListName = true;
     };
@@ -389,11 +273,18 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, dataArr
         })
         .catch(function(error:any) {
             console.log("oldListNameUpdated: ", error);
-            ToastService.showToast('Something went wrong');
+            $rootScope.lists = $scope.listsCopy;
+            $scope.title = $scope.titleCopy;
+            if (error.status === 500) {
+                ToastService.showToast('Something went wrong please try again')
+            } else (
+                ToastService.showToast('List title already exits')
+            )
         })
     }
 
     $scope.cancelEditListName = function() {
+        $rootScope.lists = $scope.listsCopy;
         $scope.title = $scope.titleCopy;
         $scope.editMatchedListName = false;
 
@@ -464,7 +355,7 @@ export class HomeController {
         })
 
         $scope.list = null;
-        $scope.lists = null;
+        $rootScope.lists = null;
 
         $scope.gotoTab = function(tab: string) {
             localStorage.setItem('currentNavItem', tab);
@@ -557,13 +448,13 @@ export class HomeController {
             
             var userId = JSON.parse(localStorage.getItem('userId'))
             var response = await AuthService.getLists(userId).then((res:any) =>{
-                $scope.lists = res
+                $rootScope.lists = res
                 
             })
             .catch((error:any) => {
                 console.log(error);
                 if (error.status === 404) {
-                    $scope.lists = null;
+                    $rootScope.lists = null;
                     ToastService.showToast(error.data)
                 }
             })
@@ -667,7 +558,6 @@ export class HomeController {
                         email: personToEdit.person.email
                     },
                 },
-                dataArrayOld: [], 
                 title: this.$scope.listForm.listName
                 }
             
@@ -679,10 +569,22 @@ export class HomeController {
         try {
 
             this.$rootScope.santas = this.secretSanta(this.$rootScope.people);
-            var saveList = await this.AuthService.saveList(this.$scope.listForm.listName,  this.$rootScope.santas);
-            this.$rootScope.peoplonFetchedList = await this.AuthService.getList(saveList.listId)
+            this.$rootScope.peopleOnFetchedList = await this.AuthService.saveList(this.$scope.listForm.listName,  this.$rootScope.santas);
+            console.log('saveList: ', this.$rootScope.peopleOnFetchedList);
+            localStorage.removeItem('currentList');
+            localStorage.removeItem('peopleOnList');
+            this.$scope.listForm = {
+                listName: '',
+                personName: '',
+                personEmail: ''
+    
+            }
+            this.$rootScope.people = [];
+            this.$scope.myForm.$setPristine();
+            this.$scope.myForm.$setUntouched();
+            // this.$rootScope.peoplonFetchedList = await this.AuthService.getList(this.$rootScope.matchedListId);
             var peopleToUpdate = this.$scope.santas;
-            console.log(this.$rootScope.santas);
+            console.log(this.$rootScope.peopleOnFetchedList);
             this.$mdDialog.show({
                 template:`
                 <md-dialog aria-label="Secret Santas">
@@ -708,7 +610,7 @@ export class HomeController {
                                 </div>
                             </div>
                             <div flex class="santa-dialog">
-                                <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArrayOld">
+                                <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
                             
                             
                                     <div ng-hide="person.editing" layout="row">
@@ -719,9 +621,9 @@ export class HomeController {
                                         <div class="cart-container">
                                             <md-icon>output</md-icon>
                                         </div>
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArrayOld.length ? 0 : $index + 1)">
-                                            {{ person.giverGiftee }}
-                                            <p>{{ ($index + 1) === dataArrayOld.length ? dataArrayOld[0].email : dataArrayOld[$index + 1].email }}</p>
+                                        <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArray.length ? 0 : $index + 1)">
+                                            {{ ($index + 1) === dataArray.length ? dataArray[0].name : dataArray[$index + 1].name }}
+                                            <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
                                         </div>
                                     </div>
                                 
@@ -748,8 +650,8 @@ export class HomeController {
                                                 </md-input-container>
                                             </div>
                                             <div layout="row">
-                                            <md-button ng-disabled="!enableUpdatePersonOld" class="listEdit-btn" ng-click="saveEditOldList($index)">Save</md-button>
-                                            <md-button class="listEdit-btn" ng-click="cancelEditOld($index)">Cancel</md-button>
+                                            <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                            <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
                                             </div>
                                         </form>
                                     </div>         
@@ -760,10 +662,10 @@ export class HomeController {
                 
                     <md-dialog-actions layout="row">
                         <div flex>
-                            <md-button class="md-icon-button" ng-click="shareUnsavedList()">
+                            <md-button class="md-icon-button" ng-click="shareList()">
                             <md-icon>send</md-icon>
                             <md-tooltip md-direction="top">
-                                Send and Save List
+                                Send List
                             </md-tooltip>
                             </md-button>
                         </div>
@@ -779,9 +681,6 @@ export class HomeController {
                         <div flex>
                             <md-button ng-click="closeDialog()">
                                 Close
-                                <md-tooltip md-direction="top" class="matched-close-tooltip">
-                                    Lists are randomly generated, this list will be lost if closed
-                                </md-tooltip>
                             </md-button>
                         </div>
                     </md-dialog-actions>
@@ -792,10 +691,10 @@ export class HomeController {
                 controller: DialogController,
                 locals: {
                 dataArray: this.$rootScope.peopleOnFetchedList,
-                dataArrayOld: [],
-                title: this.$scope.listForm.listName
+                title: this.$rootScope.matchedListId
                 }
             });
+    
         } catch(error) {
             if (error.status === 500) {
                 this.ToastService.showToast('Something went wrong please try again')
@@ -858,7 +757,7 @@ export class HomeController {
                 template: 
                 `
                 <md-dialog aria-label="View List">
-                    <form name="myFormOld" novalidate ng-cloak>
+                    <form name="myForm" novalidate ng-cloak>
                         <md-content>
                             <md-dialog-content>
                                 <div class="md-dialog-content">
@@ -880,7 +779,7 @@ export class HomeController {
                                         </div>
                                     </div>
                                     <div flex class="santa-dialog">
-                                        <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArrayOld">
+                                        <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
                                     
                                     
                                             <div ng-hide="person.editing" layout="row">
@@ -891,9 +790,9 @@ export class HomeController {
                                                 <div class="cart-container">
                                                     <md-icon>output</md-icon>
                                                 </div>
-                                                <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArrayOld.length ? 0 : $index + 1)">
-                                                    {{ person.giverGiftee }}
-                                                    <p>{{ ($index + 1) === dataArrayOld.length ? dataArrayOld[0].email : dataArrayOld[$index + 1].email }}</p>
+                                                <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArray.length ? 0 : $index + 1)">
+                                                    {{ ($index + 1) === dataArray.length ? dataArray[0].name : dataArray[$index + 1].name }}
+                                                    <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
                                                 </div>
                                             </div>
                                         
@@ -920,8 +819,8 @@ export class HomeController {
                                                         </md-input-container>
                                                     </div>
                                                     <div layout="row">
-                                                    <md-button ng-disabled="!enableUpdatePersonOld" class="listEdit-btn" ng-click="saveEditOldList($index)">Save</md-button>
-                                                    <md-button class="listEdit-btn" ng-click="cancelEditOld($index)">Cancel</md-button>
+                                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                                    <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
                                                     </div>
                                                 </form>
                                             </div>         
@@ -931,13 +830,13 @@ export class HomeController {
                                 
                             </md-dialog-content>
                             <md-dialog-actions layout="row">
-                                <md-button flex  class="md-icon-button" ng-click="shareList()">
+                                <md-button flex  class="md-icon-button" ng-click="shareListOld()">
                                     <md-icon>send</md-icon>
                                     <md-tooltip md-direction="top">
                                         Send
                                     </md-tooltip>
                                 </md-button>
-                                <md-button flex  class="md-icon-button" ng-click="showConfirmAndDownloadOldList()">
+                                <md-button flex  class="md-icon-button" ng-click="showConfirmAndDownload()">
                                 <md-icon>download_for_offline</md-icon>
                                 <md-tooltip md-direction="top">
                                     Download
@@ -962,8 +861,7 @@ export class HomeController {
                 controller: DialogController,
                 locals: {
                     title: list,
-                    dataArray: [],
-                    dataArrayOld: this.$rootScope.peopleOnFetchedList
+                    dataArray: this.$rootScope.peopleOnFetchedList,
                 }
             })
         } catch (error:any) {

@@ -25,9 +25,6 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
   $rootScope.isEmailVerified = false;
   $rootScope.passwordResetToken = '';
 
-  $rootScope.isAuthenticated = true;
-
-
   $scope.$watch('$location', function() {
       if($location.path() === '/signup-password') {
         var token = $location.search().token;
@@ -333,18 +330,19 @@ app.service('Session', function () {
 app.factory('AuthService', function ($http: angular.IHttpService, Session: any, $q: any, $rootScope: any, $location: any, $window: any, ToastService: any) {
   var authService: any = {};
  
-  // authService.isLoggedIn = function() {
-  //   if ($window.localStorage.getItem('userToken')) {
-  //     return true
-  //   }
-  //   return false;
-  // }
   authService.isLoggedIn = function() {
-    
+    if ($window.localStorage.getItem('userToken')) {
       return true
+    }
+    return false;
+  }
+
+  // authService.isLoggedIn = function() {
+    
+  //     return true
     
    
-  }
+  // }
 
   authService.isResetToken = function() {
     if ($rootScope.passwordResetToken !== '') {

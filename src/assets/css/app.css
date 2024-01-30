@@ -615,12 +615,10 @@ md-list-item.md-2-line:hover {
 }
 
 .my-toast {
- 
   height: 150px;
   top: 50% !important; 
-  left: 50% !important; 
-  
-  max-width: 350px;
+  left: calc(50% - 175px) !important; 
+  width: 350px;
 }
 
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {

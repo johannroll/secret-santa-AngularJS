@@ -4,7 +4,6 @@ import 'angular-animate';
 import 'angular-aria';
 import 'angular-material';
 import 'angular-messages';
-import 'angular-touch';
 
 import '../assets/css/app.css';
 
@@ -15,7 +14,7 @@ import { PasswordController } from './controllers/PasswordController';
 import { ResetPasswordController } from './controllers/ResetPasswordController';
 
 
-const app = angular.module('myApp', ['ngMaterial','ngRoute','ngAnimate','ngMessages', 'ngTouch']);
+const app = angular.module('myApp', ['ngMaterial','ngRoute','ngAnimate','ngMessages']);
 
 app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $timeout, $mdDialog, $rootScope, $mdMenu, $document, $window, $mdMedia, AuthService, LoadingService, ToastService) {
   $scope.myInitFunction = function() {

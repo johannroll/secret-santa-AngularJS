@@ -301,7 +301,6 @@ export class HomeController {
         $scope.isNewList = JSON.parse(localStorage.getItem('newList')) === null ? null : JSON.parse(localStorage.getItem('newList'));
         
         $scope.$watch('currentNavItem', function(newVal, oldVal) {
-            console.log(newVal);
             if (newVal === 'oldLists') {
                 $scope.loadLists();
             }

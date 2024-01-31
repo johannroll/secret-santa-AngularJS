@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Secret Santa</title>
     <link
@@ -16,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap" rel="stylesheet">
   </head>
   <body>
-
       <div class="index-container" ng-app="myApp" layout="column" ng-controller="MainCtrl as ctrl" ng-init="myInitFunction()" md-theme="{{ currentTheme }}" md-theme-watch="true" ng-cloak>
         <md-toolbar  class="menu"  layout="row" flex layout-align="end center">
             <md-menu  md-position-mode="target bottom" class="userMenu">
@@ -54,7 +53,6 @@
             </div>
         </div>
       </div>
-          
       <script type="text/javascript" src="/bundle.js"></script>   
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.js"></script>

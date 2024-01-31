@@ -166,10 +166,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         })
     }
 
-    // $scope.updatePerson = function(person: any, ev: Event) {
-    //     console.log('person updated: ', person);
-    // }
-
     $scope.editListItem = function($event: Event, $index: any, item: any) {
         $scope.listItem = {
             index: $index,

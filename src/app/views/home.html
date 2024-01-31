@@ -7,15 +7,14 @@
       <div class="clip-path-shadow">
         <div class="triangle"></div>
       </div>
-      <!-- <img class="hero-triangle-background" src="/app/assets/Green_equilateral_triangle_point_up.png" alt="Image of Santa"> -->
       <h1 class="hero-heading">Secret Santa</h1>
       <p class="days-till-christmas">{{ daysToChristmas }} days to Christmas</p>
     </div>
     <div layout="column" layout-align="center center">
         <md-nav-bar
-            md-no-ink-bar="disableInkBar"
-            md-selected-nav-item="currentNavItem"
-            nav-bar-aria-label="navigation links">
+        md-no-ink-bar="disableInkBar"
+        md-selected-nav-item="currentNavItem"
+        nav-bar-aria-label="navigation links">
             <md-nav-item md-nav-click="gotoTab('newList')" name="newList">
                 Create List
             </md-nav-item>
@@ -27,10 +26,8 @@
     <div layout="column" layout-align="top center" class="create-container" flex >
        
         <div ng-show="isNewList" layout="column" layout-align="top center" class="newList slide2">
-            <!-- <h2 class="md-display-1 tabs-heading">New List {{ listForm.listName }}</h2> -->
             <p class="md-body-1">
                 <form name="myForm" class="newlist-form" layout="column" layout-align="top center"  autocomplete="off">
-                    <!-- <h4>List name</h4> -->
                     <md-input-container class="md-primary add-names" flex-gt-sm>
                         <label>Enter list name</label>
                         <input type="text" minlength="4" maxlength="25" name="list" required ng-model="listForm.listName">
@@ -40,7 +37,6 @@
                         <div ng-message="maxlength">Name too long</div>
                     </div>
                     </md-input-container>
-                    <!-- <h2 class="add-people">Add people</h2> -->
                     <div>
                         <md-input-container class="md-inline md-primary add-names" flex-gt-sm>
                             <label>Add person name</label>
@@ -68,8 +64,7 @@
                 </div>
                 <div class="secret-santas my-element" ng-show="people.length > 0">
                     <h3>People on {{ listForm.listName }}</h3>
-                    <div ng-repeat="person in people track by $index" class="names-list my-element" id="person_{{$index}}" ng-click="vm.editPerson($event, person, $index)">
-                        
+                    <div ng-repeat="person in people track by $index" class="names-list my-element" id="person_{{$index}}" ng-click="vm.editPerson($event, person, $index)">  
                         <div class="list-name">
                             <h3>
                                 {{$index + 1}}. {{ person.name }}
@@ -79,7 +74,6 @@
                         <div class="icon-close-container">
                             <md-icon class="icon-close"  ng-click="vm.removeName($index)" >highlight_off</md-icon>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="button-overlay-container">
@@ -89,7 +83,6 @@
                 <div>
                     <md-button class="md-raised md-accent clear-btn" ng-click="vm.clearList()">Clear list</md-button>
                 </div>
-            
             </p>
         </div>
         <div ng-show="isNewList === false" layout="column" layout-align="top center" class="newList slide2">
@@ -104,14 +97,7 @@
                 </md-content>
             </div>
         </div>
-        
     </div>
-    
-    <!-- <ms-user-details selected="$ctrl.selected"></ms-user-details> -->
-    
 </md-content>
-  <div ng-if="isLoading" class="loader-wrapper">
-    <div class="loader"></div>
-  </div>
-        
+
     

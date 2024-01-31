@@ -20,26 +20,21 @@ export class SignupController {
         $scope.email = '';
         $scope.password = '';
         $scope.confirmPassword = '';
-
         $scope.enableVerify = false;
         
         $scope.$watch('myForm.$valid', function(newVal, oldVal) {
-            console.log('Form validity changed. New validity:', newVal );
             if (newVal) {
                 $scope.enableVerify = true;
             } else {
                 $scope.enableVerify = false;
 
             }
-
         });
 
         $scope.verifyEmail = function () {
-            console.log('email to verify', $scope.email);
             AuthService.registerUser($scope.email)
                 .then(function(res:any) {
                     if (res.status === 200) {
-                        // var $mdDialog = $injector.get('$mdDialog');
                         var confirm = $mdDialog.alert()
                           .theme(localStorage.getItem('theme'))
                           .title('Verify your Email')
@@ -48,12 +43,9 @@ export class SignupController {
                           $mdDialog.show(confirm).then(function () {
                             console.log('user acknowledged');
                           });
-                        // ToastService.showToast('Please check your inbox to verify your email address');
                     }
-                    console.log('Email to verify sent', res);
                 })
                 .catch(function(error: any) {
-                    console.log('Something went wrong', error);
                     ToastService.showToast('Something went wrong')
                 })   
         }
@@ -65,9 +57,7 @@ export class SignupController {
 
     disabledVerifyButtonClick() {
         if (!this.$scope.enableVerify) {
-            console.log('disabled button clicked');
           this.ToastService.showToast('Please enter valid email')
         }
-
     }
-}
+};

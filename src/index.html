@@ -12,57 +12,53 @@
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
-      
-      />
-      <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap" rel="stylesheet">
-</head>
-<body>
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap" rel="stylesheet">
+  </head>
+  <body>
 
-    <div class="index-container" ng-app="myApp" layout="column" ng-controller="MainCtrl as ctrl" ng-init="myInitFunction()" md-theme="{{ currentTheme }}" md-theme-watch="true" ng-cloak>
-            <md-toolbar  class="menu"  layout="row" flex layout-align="end center">
-                <md-menu  md-position-mode="target bottom" class="userMenu">
-                    <md-button ng-show="currentPath === '/'" class="user" ng-click="toggleMenu($mdMenu, $event) ">
-                        <md-icon class="face-icon md-36">face</md-icon>
-                        {{ userName }}<md-icon class="face-icon">expand_more</md-icon>
-                    </md-button>
-                    <md-menu-content width="4">
-                        <md-menu-item>
-                          <md-button ng-click="openAccount()"> <span>Account</span></md-button>
-                        </md-menu-item>
-                        <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
-                          <md-button ng-click="logout()"> <span>Logout</span></md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <md-button ng-if="isAuthenticated" ng-show="currentPath === '/'" class="md-accent logout-btn" ng-click="logout()" >
-                  logout
+      <div class="index-container" ng-app="myApp" layout="column" ng-controller="MainCtrl as ctrl" ng-init="myInitFunction()" md-theme="{{ currentTheme }}" md-theme-watch="true" ng-cloak>
+        <md-toolbar  class="menu"  layout="row" flex layout-align="end center">
+            <md-menu  md-position-mode="target bottom" class="userMenu">
+                <md-button ng-show="currentPath === '/'" class="user" ng-click="toggleMenu($mdMenu, $event) ">
+                    <md-icon class="face-icon md-36">face</md-icon>
+                    {{ userName }}<md-icon class="face-icon">expand_more</md-icon>
                 </md-button>
-                <div class="theme-selector">
-                  <md-button class="md-icon-button md-primary" ng-click="toggleTheme()" ng-model="darkmode">
-                      <md-icon>contrast</md-icon>
-                  </md-button>
-                </div>
-                
-              </md-toolbar>
-            
-            <!-- Main content -->
-            <div layout="column" flex class="view-body" > 
-                <div class="animation-wrapper">
-                    <div ng-view class="content slide" id="animate-view"></div>   
-                </div> 
-                <div ng-show="showLoader" class="loader-wrapper">
-                    <div class="loader"></div>
-                </div>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                      <md-button ng-click="openAccount()"> <span>Account</span></md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                      <md-button ng-click="logout()"> <span>Logout</span></md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            <md-button ng-if="isAuthenticated" ng-show="currentPath === '/'" class="md-accent logout-btn" ng-click="logout()" >
+              logout
+            </md-button>
+            <div class="theme-selector">
+              <md-button class="md-icon-button md-primary" ng-click="toggleTheme()" ng-model="darkmode">
+                  <md-icon>contrast</md-icon>
+              </md-button>
+            </div>      
+        </md-toolbar>
+              
+        <!-- Main content -->
+        <div layout="column" flex class="view-body" > 
+            <div class="animation-wrapper">
+                <div ng-view class="content slide" id="animate-view"></div>   
+            </div> 
+            <div ng-show="showLoader" class="loader-wrapper">
+                <div class="loader"></div>
             </div>
         </div>
-    </div>
-        
-    
-    <script type="text/javascript" src="/bundle.js"></script>   
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-</body>
+      </div>
+          
+      <script type="text/javascript" src="/bundle.js"></script>   
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  </body>   
 </html>
 

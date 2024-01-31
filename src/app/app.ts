@@ -28,21 +28,16 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
       if($location.path() === '/signup-password') {
         var token = $location.search().token;
         if (token) {
-
           AuthService.verifyEmailToken(token)
             .then(function(res:any) {
-              console.log('result from verify token: ', res.data.email);
               $rootScope.VerifiedEmail = res.data.email;
-              console.log($rootScope.VerifiedEmail);
               $rootScope.isEmailVerified = true;
               $location.path('/signup-password');
             })
             .catch(function(error:any) {
               ToastService.showToast('Please sign up again!', error.data);
               $location.path('/signup')
-
             });
-          
         }
       }
       if($location.path() === '/reset-password') {
@@ -50,8 +45,7 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
         if (token) {
         var decodedToken = decodeURIComponent(token).replace(/ /g, '+');
         $rootScope.passwordResetToken = decodedToken;
-        console.log("decodedToken: ", decodedToken);
-    }
+        }
       }
     });
 
@@ -70,18 +64,17 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
     } else {
         $document.find('body').addClass('body-light');
     }
-    console.log('Controller initialized');
 
   };
+
   $scope.$watch(() => $rootScope.isAuthenticated, (newValue: boolean) => {
     $scope.isAuthenticated = newValue
     if ($scope.isAuthenticated) {
       $scope.userName = localStorage.getItem('userName');
       $scope.userId = JSON.parse(localStorage.getItem('userId'));
-      console.log('UserId: ', $scope.userId);
     }
   });
-  var body = angular.element(document.body);
+
   $scope.isDialogOpen = false;  
   $scope.currentPath = $location.path();
 
@@ -91,9 +84,9 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
     $scope.currentPath = newPath;
   });
     
-  $scope.currentTheme = JSON.parse(localStorage.getItem('theme')) === null ? 'light' :JSON.parse(localStorage.getItem('theme')); 
+  $scope.currentTheme = JSON.parse(localStorage.getItem('theme')) === null ? 'light' :JSON.parse(localStorage.getItem('theme'));
+
   $scope.toggleTheme = function() {
-    console.log('theme switched')
     $scope.currentTheme = $scope.currentTheme === 'light' ? 'dark' : 'light';
     localStorage.setItem('theme', JSON.stringify($scope.currentTheme));
 
@@ -122,7 +115,6 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
 
   $scope.$on('$mdMenuOpen', function() {
     $scope.isMenuOpen = true;
-    console.log($scope.isMenuOpen);
   });
 
   $scope.$on('$mdMenuClose', function() {
@@ -134,15 +126,15 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
       $scope.user = {
         userName: localStorage.getItem('userName'),
         userId: localStorage.getItem('userId')
-      }
+      };
 
       $scope.closeDialog = function() {
         $mdDialog.hide();
-      }
+      };
+
       $scope.currentTheme = localStorage.getItem('theme');
 
       $scope.removeAccount = function() {
-        console.log('user account to delete: ,', localStorage.getItem('userId'));
         var confirm = $mdDialog.confirm()
         .theme(localStorage.getItem('theme'))
         .title('Delete Account?')
@@ -168,7 +160,6 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
   $scope.openAccount = function(ev : any) {
     console.log('open account settings');
     $mdDialog.show({
-      
       template: 
         `
         <md-dialog aria-label="Account Settings" md-theme="{{currentTheme}}">
@@ -194,12 +185,10 @@ app.controller('MainCtrl', function($scope: any, $mdSidenav, $location, $log, $t
       locals: {
           user: $scope.user,
       }
-      
     });
   }
 
   $scope.logout = function() {
-    console.log('logout clicked');
     AuthService.logout();
   };
 });
@@ -264,26 +253,20 @@ app.config(['$routeProvider', ($routeProvider: angular.route.IRouteProvider) => 
           }
         })
         .otherwise({ redirectTo: '/' });
-
 }]);
 
 //Configure themes
 app.config(['$mdThemingProvider', function($mdThemingProvider: angular.material.IThemingProvider) {
     // Define the light theme
     $mdThemingProvider.theme('light')
-        .primaryPalette('pink')
-       
+        .primaryPalette('pink')    
         .accentPalette('pink');
         
-        
-
     // Define the dark theme
     $mdThemingProvider.theme('dark')
         .primaryPalette('pink')
-       
         .accentPalette('pink')
         .dark();
-    
 }]);
 
 app.service('LoadingService', function($rootScope: any) {
@@ -334,28 +317,21 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
       return true
     }
     return false;
-  }
-
-  // authService.isLoggedIn = function() {
-    
-  //     return true
-    
-   
-  // }
+  };
 
   authService.isResetToken = function() {
     if ($rootScope.passwordResetToken !== '') {
       return true
     }
     return false;
-  }
+  };
 
   authService.isEmailVerified = function() {
     if ($rootScope.isEmailVerified) {
       return true
     }
     return false;
-  }
+  };
 
   authService.registerUser = function(email: string) {
     return $http
@@ -366,7 +342,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
       .catch(function(error) {
         return $q.reject(error);
       })
-  }
+  };
 
   authService.verifyEmailToken = function (token: string) {
     console.log("Token to verify: ", token);
@@ -374,16 +350,14 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
     .then(function(response) {
         if (response.status === 200) {
             $rootScope.isEmailVerified = true;
-            console.log("Email varified");
             return response;
         }
     })
     .catch(function(error) {
       $rootScope.isEmailVerified = false;
-      console.error('Error response', error);
       return $q.reject(error);
     });
-  }
+  };
 
   authService.setPassword = function(password: string) {
     return $http
@@ -392,23 +366,20 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
         password: password 
       })
       .then(function(res: any) {
-        console.log('user sccount created');
         ToastService.showToast('Account created successfully please login');
         $location.path('/login');
         $rootScope.isEmailVerified = false;
         $rootScope.clearSpecificQueryParam('token');
         if (res.status === 200) {
-          console.log(res.status);
           return res;
         }
       })
       .catch(function(error: any) {
-        console.log(error);
         $rootScope.isEmailVerified = false;
         ToastService.showToast('This email address is not availalble');
         return $q.reject(error);
       }) 
-  }
+  };
 
   authService.requestPasswordReset = function(email: string) {
       return $http
@@ -439,7 +410,6 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
       .then(function (res: any) {
         if (res.data.token !== '')
         {
-          console.log(res.data)
           localStorage.setItem('userToken', res.data.token);
           localStorage.setItem('userId', res.data.userId);
           localStorage.setItem('userName', res.data.userEmail);
@@ -451,20 +421,17 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
           return res;
         })
       .catch(function (error: any) {
-        console.error('Error during login', error);
         return $q.reject(error);
       });
   };
+
   authService.getLists =  function (userId: number) {
     return $http
       .get('https://secretsantaapi.azurewebsites.net/api/GiftList/get-user-lists/' + userId)
       .then(function (res) {
-          console.log(res.data)
         return res.data;
       })
       .catch(function (error) {
-        console.error('Error getting request', error);
-       
         return $q.reject(error);
       });
   };
@@ -473,12 +440,9 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
     return $http
       .get('https://secretsantaapi.azurewebsites.net/api/Person/' + listId + '/people-on-list')
       .then(function (res) {
-          console.log(res.data)
         return res.data;
       })
       .catch(function (error) {
-        console.error('Error getting request', error);
-      
         return $q.reject(error);
       });
   };
@@ -488,11 +452,9 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
     for (var j = 0; j < list.length; j++) {
       sortedList.push({name: list[j].giver.name, email: list[j].giver.email, isBuyer: true, giverGiftee: list[j].giftee.name})
     }
-    console.log('sortedList', sortedList);
     try {
         var response = await this.createList(listName)
         $rootScope.matchedListId = response;
-        console.log("matchedListId: ", $rootScope.matchedListId);
       }
       catch (error:any) {
         return $q.reject(error);
@@ -507,7 +469,6 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
           giverGiftee: sortedList[i].giverGiftee 
         })
         .then(function(res) {
-          console.log(res)
           peopleCreated.push(res.data);
         })
         .catch(function (error) {
@@ -517,13 +478,14 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
     
     return peopleCreated;
     
-  }
+  };
+
   authService.saveListAndEmail = async function(listName: string, list : any) {
     var sortedList = [];
     for (var j = 0; j < list.length; j++) {
       sortedList.push({name: list[j].giver.name, email: list[j].giver.email, isBuyer: true, giverGiftee: list[j].giftee.name})
     }
-    console.log('sortedList', sortedList);
+   
     try {
         var response = await this.createList(listName)
         $rootScope.matchedListId = response;
@@ -531,7 +493,9 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
       catch (error:any) {
         return $q.reject(error);
       }
+
     var peopleCreated : any = [];
+
     for (var i = 0; i < sortedList.length; i++) {
       $http
         .post('https://secretsantaapi.azurewebsites.net/api/Person/create/' + response.listId, { 
@@ -541,18 +505,16 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
           giverGiftee: sortedList[i].giverGiftee 
         })
         .then(function(res) {
-          console.log(res)
           peopleCreated.push(res.data);
         })
         .catch(function (error) {
           return $q.reject(error);
         });
-    }
+    };
 
     $http
         .post('https://secretsantaapi.azurewebsites.net/api/Person/send-secret-santas/' + response.listId, {})
         .then(function(response) {
-          console.log(response);
         })
         .catch(function(error) {
           return $q.reject(error);
@@ -560,20 +522,19 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
     
     return sortedList;
     
-  }
+  };
 
   authService.createList = function(listName: string) {
     var userId = JSON.parse(localStorage.getItem('userId'));
     return $http
       .post('https://secretsantaapi.azurewebsites.net/api/GiftList/createlist/' + userId, { title: listName })
       .then(function(res) {
-        console.log(res)
         return res.data;
       })
       .catch(function (error) {
         return $q.reject(error);
       });
-  }
+  };
 
   authService.updateListName = function(listId: number, updatedListName: string) {
     return $http
@@ -583,13 +544,12 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
         userId: 0
        })
       .then(function(res) {
-        console.log(res)
         return res.data;
       })
       .catch(function (error) {
         return $q.reject(error);
       });
-  }
+  };
 
   authService.updatePerson = function(person: any) {
     return $http
@@ -599,13 +559,12 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
         email: person.email 
       })
       .then(function(res) {
-        console.log(res)
         return res.data;
       })
       .catch(function (error) {
         return $q.reject(error);
       });
-  }
+  };
 
   authService.sendList = function(listId: number) {
       return $http
@@ -616,7 +575,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
         .catch(function(error) {
           return $q.reject(error);
         });
-  }
+  };
  
   authService.isAuthenticated = function () {
     return !!Session.userId;
@@ -671,7 +630,7 @@ app.factory('AuthService', function ($http: angular.IHttpService, Session: any, 
   return authService;
 
 
-})
+});
 
 app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, $injector: any, $location: any) {
   var token = localStorage.getItem('userToken');
@@ -684,10 +643,7 @@ app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, 
       return config;
     },
       responseError: function(response: any) {
-          console.log("repsonseError: ", response.data);
           if (response.status === 401 && token !== null) {
-              // Token has expired
-              // Handle token expiration, e.g., redirect to login
               var $mdDialog = $injector.get('$mdDialog');
               var confirm = $mdDialog.alert()
                 .theme(localStorage.getItem('theme'))
@@ -706,20 +662,15 @@ app.factory('AuthInterceptor', function($rootScope: any, $q: any, $window: any, 
                 localStorage.removeItem('currentNavItem');
                 $location.path('/login');
               });
-              // Redirect to login or other appropriate action
-             
-              
           }
           return $q.reject(response);
       }
   };
-})
+});
 
 app.config(function($httpProvider: any) {
   $httpProvider.interceptors.push('AuthInterceptor');
 });
-
-
 
 app.factory('httpInterceptor', function($q: any, LoadingService: any) {
   return {
@@ -742,7 +693,6 @@ app.config(function($httpProvider: any) {
   $httpProvider.interceptors.push('httpInterceptor');
 });
 
-
 app.run(function($rootScope: any, $location: any, AuthService: any, $http:angular.IHttpService) {
   $rootScope.$on('$routeChangeStart', function(event: any, next: any, current: any) {
     angular.element(document.querySelector('#animate-view')).addClass('slide');
@@ -763,11 +713,13 @@ app.run(function($rootScope: any, $location: any, AuthService: any, $http:angula
       }
     console.log('User logged in: ', AuthService.isLoggedIn());
   });
+
   $rootScope.$on('$routeChangeSuccess', function() {
     setTimeout(function() {
       angular.element(document.querySelector('#animate-view')).removeClass('slide');
     }, 3000);
   });
+
   $rootScope.$on('loading:show', function() {
     $rootScope.showLoader = true;
   });
@@ -775,8 +727,6 @@ app.run(function($rootScope: any, $location: any, AuthService: any, $http:angula
   $rootScope.$on('loading:hide', function() {
     $rootScope.showLoader = false;
   });
-
-
 });
 
 app.directive('passwordMatch', [function() {

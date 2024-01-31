@@ -1,9 +1,7 @@
 import * as angular from 'angular';
-import { setInterval } from 'timers/promises';
 
 function DialogController($scope : any, $mdDialog : any, dataArray: any, title: any, AuthService: any, ToastService: any, $rootScope: any,$timeout: any) {
     $scope.dataArray = dataArray;
-    console.log("dataArray: ", $scope.dataArray);
     $scope.title = title;
     $scope.listItem = {
         index: null,
@@ -18,35 +16,19 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     $scope.enableUpdatePerson = false;
 
     $scope.$watch('myForm.$valid', function(newVal: any, oldVal: any) {
-        console.log('Form validity changed. New validity:', newVal );
         if (newVal) {
             $scope.enableUpdatePerson = true;
         } else {
             $scope.enableUpdatePerson = false;
 
         }
-
     });
 
     $scope.enableUpdatePersonOld = false;
 
-    $scope.$watch('myFormOld.$valid', function(newVal: any, oldVal: any) {
-        console.log('Form validity changed. New validity:', newVal );
-        if (newVal) {
-            $scope.enableUpdatePersonOld = true;
-        } else {
-            $scope.enableUpdatePersonOld = false;
-
-        }
-
-    });
-
     $scope.updatePeopleArray = function() {
-        console.log('updated person: ', dataArray);
         var people = JSON.parse(localStorage.getItem('peopleOnList'));
         var remainingPeople = people.filter((item:any, index: number) => index !== dataArray.personToEdit.index);
-        console.log('people spliced: ', remainingPeople);
-        console.log('Updated values: ,', dataArray.personUpdated);
         for (var i = 0; i < remainingPeople.length; i++) {
             if (remainingPeople[i].name === dataArray.personUpdated.name) {
                 ToastService.showToast('Duplicate entry, name already on list');
@@ -56,11 +38,10 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
                 return;
             }
         }
-        console.log(people);
+
         people[dataArray.personToEdit.index] = dataArray.personUpdated
         localStorage.setItem('peopleOnList', JSON.stringify(people));
         $rootScope.$broadcast('peopleOnListUpdated');
-        console.log(people);
         $mdDialog.hide();
     };
 
@@ -74,7 +55,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
   
       // Add each pair to the PDF
       doc.setFontSize(12);
-      console.log('from saved lists downlaod: ', dataArray);
       dataArray.forEach((pair: any, index : any) => {
         doc.text(`${pair.name} gives a gift to ${pair.giverGiftee}`, 10, 20 + (10 * index));
       });
@@ -116,7 +96,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     };
 
     $scope.saveList = function() {
-        console.log('list saved:',this.title, this.dataArray);
         AuthService.saveList(this.title, this.dataArray).
         then(function (res: any) {
             localStorage.removeItem('currentList');
@@ -127,21 +106,16 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
 
         })
         .catch(function (error:any) {
-            console.log(error);
             if (error.status !== 401) {
                 ToastService.showToast('List already exists');
             }
         
         });
-
-
-
     };
 
     $scope.deleteList = function() {
         AuthService.deleteList(title.listId)
         .then(function(res:any) {
-            console.log('List Deleted');
             $mdDialog.hide();
             if (res.status === 200) {
                 ToastService.showToast('List Deleted')
@@ -155,9 +129,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         });
     };
 
-
     $scope.shareList = function() {
-        console.log('list to send:', this.title);
         $mdDialog.hide();
         AuthService.sendList($rootScope.matchedListId.listId)
         .then(function(res: any) {
@@ -177,7 +149,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     }
 
     $scope.shareListOld = function() {
-        console.log('list to send:', this.title);
         $mdDialog.hide();
         AuthService.sendList(this.title.listId)
         .then(function(res: any) {
@@ -189,16 +160,15 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
             .ariaLabel('Lucky day')
             .ok('Ok')
             
-  
             $mdDialog.show(confirm).then(function () {
                 $mdDialog.hide();
             })
         })
     }
 
-    $scope.updatePerson = function(person: any, ev: Event) {
-        console.log('person updated: ', person);
-    }
+    // $scope.updatePerson = function(person: any, ev: Event) {
+    //     console.log('person updated: ', person);
+    // }
 
     $scope.editListItem = function($event: Event, $index: any, item: any) {
         $scope.listItem = {
@@ -206,13 +176,11 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
             item: item
         }
         $scope.shouldCloseDialog = false;
-        console.log('LISTITEM FROM DIALOG1: ', $scope.listItem);
         $rootScope.$broadcast('editListItem', {message: $scope.listItem});
     };
 
     $scope.enableEditing = function(index: number) {
         $scope.dataArray[index].editing = true;
-        console.log('editing: ',  $scope.dataArray[index].editing);
         $scope.backup = angular.copy($scope.dataArray[index]);
         $scope.santaEdit = angular.copy($scope.dataArray[index]);
         $scope.fullBackup = angular.copy($scope.dataArray);
@@ -225,17 +193,13 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
         });
     };
 
-
     $scope.saveEdit = function(index : number) {
         var editedItem =  $scope.dataArray[index];
-        console.log('old list updated item: ', editedItem);
         AuthService.updatePerson(editedItem)
         .then(function(res: any) {
-            console.log('person update: ',res);
             $scope.dataArray[index].editing = false;
         })
         .catch(function(error:any) {
-            console.log("person update: ",error);
             ToastService.showToast('Something went wrong');
         })
     }
@@ -243,9 +207,7 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     $scope.cancelEdit = function(index: number) {
         $scope.dataArray[index] = $scope.backup;
         $rootScope.people = $scope.peopleBackup;
-        $scope.dataArray[index].editing = false;
-        console.log('editing: ',$scope.dataArray[index].editing = false);
-        
+        $scope.dataArray[index].editing = false; 
         $scope.dataArray = $scope.fullBackup;
     };
 
@@ -255,7 +217,6 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     $scope.editMatchedTitle = function() {
         $scope.listsCopy = angular.copy($rootScope.lists)
         $scope.titleCopy = angular.copy($scope.title);
-        console.log('Matched listName old: ', $scope.titleCopy);
         $scope.editMatchedListName = true;
     };
 
@@ -265,14 +226,12 @@ function DialogController($scope : any, $mdDialog : any, dataArray: any, title: 
     }
 
     $scope.saveEditOldListName = function() {
-        console.log('EditOldListName: ', title);
         AuthService.updateListName(title.listId, title.title)
         .then(function(res:any) {
             console.log('oldListNameUpdated: ', res);
             $scope.editMatchedListName = false;
         })
         .catch(function(error:any) {
-            console.log("oldListNameUpdated: ", error);
             $rootScope.lists = $scope.listsCopy;
             $scope.title = $scope.titleCopy;
             if (error.status === 500) {
@@ -322,13 +281,7 @@ interface ICustomScope extends angular.IScope {
 
 export class HomeController {
     static $inject = ['$scope', '$mdDialog', '$mdToast', 'ToastService','AuthService', '$timeout', '$q', '$anchorScroll','$location', '$rootScope'];
-
-    private listName = '';
-    private personName = '';
-    private personEmail = '';
-    private people = <any[]> [];
     public santas: any = [];
-
 
     constructor(private $scope: ICustomScope, private $mdDialog: any, private $mdToast: any, private ToastService: any, private AuthService: any, private $timeout: any, private $q: any, $anchorScroll: any, $location: any, private $rootScope: any) {
         $scope.myForm = null;
@@ -347,12 +300,12 @@ export class HomeController {
         $scope.currentNavItem = localStorage.getItem('currentNavItem') === null ? 'newList' : localStorage.getItem('currentNavItem');
         $scope.isNewList = JSON.parse(localStorage.getItem('newList')) === null ? null : JSON.parse(localStorage.getItem('newList'));
         
-        $scope.$watch('isNewList', function(newVal, oldVal) {
-            console.log('isnewlist', newVal);
-            if (!newVal) {
+        $scope.$watch('currentNavItem', function(newVal, oldVal) {
+            console.log(newVal);
+            if (newVal === 'oldLists') {
                 $scope.loadLists();
             }
-        })
+        });
 
         $scope.list = null;
         $rootScope.lists = null;
@@ -366,18 +319,8 @@ export class HomeController {
            } else {
             localStorage.setItem('newList', JSON.stringify(false));
             $scope.isNewList = JSON.parse(localStorage.getItem('newList'));
-            // $scope.loadLists()
            }
-           console.log($scope.currentNavItem);
-           console.log($scope.isNewList);
         };
-        
-
-        $scope.$watch('list', function(newVal) {
-            if (newVal !== null) {
-                console.log('get people on list with listId: ', $scope.list.listId);
-            }
-        })
 
         $scope.listForm = {
             listName: JSON.parse(localStorage.getItem('currentList')) === null
@@ -392,18 +335,14 @@ export class HomeController {
         $scope.enableAdd = false;
         
         $scope.$watch('myForm.$valid', function(newVal, oldVal) {
-            console.log('Form validity changed. New validity:', newVal );
             if (newVal) {
                 $scope.enableAdd = true;
             } else {
                 $scope.enableAdd = false;
-
             }
-
         });
 
         $scope.$watch('myForm.list.$viewValue', function(newVal, oldVal) {
-            console.log(newVal);
             setTimeout(() => {
                 localStorage.setItem('currentList', JSON.stringify(newVal));
             }, 1500)
@@ -428,7 +367,7 @@ export class HomeController {
 
         $scope.$on('peopleOnListUpdated', () => {
             $rootScope.people = JSON.parse(localStorage.getItem('peopleOnList'))
-        })
+        });
 
         $scope.$on('sharedUnsavedList', function() {
             localStorage.removeItem('currentList');
@@ -442,26 +381,23 @@ export class HomeController {
             $rootScope.people = [];
             $scope.myForm.$setPristine();
             $scope.myForm.$setUntouched();
-        })
+        });
     
         $scope.loadLists = async function() {
-            
             var userId = JSON.parse(localStorage.getItem('userId'))
             var response = await AuthService.getLists(userId).then((res:any) =>{
                 $rootScope.lists = res
                 
             })
             .catch((error:any) => {
-                console.log(error);
                 if (error.status === 404) {
                     $rootScope.lists = null;
                     ToastService.showToast(error.data)
                 }
             })
             return response;
-        }
+        };
     }
-
 
     addPeople() {
         localStorage.setItem('currentList', JSON.stringify(this.$scope.listForm.listName));
@@ -472,7 +408,6 @@ export class HomeController {
         for (let i = 0; i < this.$rootScope.people.length; i++) {
             if (this.$rootScope.people[i].name.toLocaleLowerCase() === this.$scope.listForm.personName.toLocaleLowerCase()) {
               this.ToastService.showToast('Name already exists, enter unique name!')
-              console.log("Duplicate entry: ", this.$rootScope.people[i]);
               this.$scope.listForm.personName = '';
               this.$scope.myForm.$setPristine();
               this.$scope.myForm.$setUntouched();
@@ -480,7 +415,6 @@ export class HomeController {
             }
             if (this.$rootScope.people[i].email.toLocaleLowerCase() === this.$scope.listForm.personEmail.toLocaleLowerCase()) {
               this.ToastService.showToast('Email already exists, enter unique email!')
-              console.log("Duplicate entry: ", this.$rootScope.people[i]);
               this.$scope.listForm.personEmail = '';
               this.$scope.myForm.$setPristine();
               this.$scope.myForm.$setUntouched();
@@ -493,27 +427,23 @@ export class HomeController {
           this.$scope.listForm.personEmail = '';
           this.$scope.myForm.$setPristine();
           this.$scope.myForm.$setUntouched();
-          console.log(this.$rootScope.people);
-    }
+    };
 
     removeName(index: number) {
         this.$rootScope.people = JSON.parse(localStorage.getItem('peopleOnList'));
         this.$rootScope.people.splice(index, 1);
         localStorage.setItem('peopleOnList', JSON.stringify(this.$rootScope.people));
-    }
+    };
 
     editPerson(ev: Event, person: any, index: number) {
         var personToEdit = {
             index: index,
             person: person
         }
-        console.log('person to edit: ', personToEdit);
         this.$mdDialog.show({
-            
             template: 
                 `
                 <md-dialog aria-label="Edit Person">
-            
                     <md-dialog-content>
                         <div class="md-dialog-content">
                             <h2>Update Person</h2>
@@ -543,8 +473,7 @@ export class HomeController {
                     <md-dialog-actions layout="row">
                         <md-button ng-disabled="!enableUpdatePerson" ng-click="updatePeopleArray()">Update</md-button>
                         <md-button ng-click="closeDialog()">Cancel</md-button>
-                    </md-dialog-actions>
-            
+                    </md-dialog-actions>     
                 </md-dialog>
                 `,
             clickOutsideToClose: true,
@@ -559,18 +488,16 @@ export class HomeController {
                     },
                 },
                 title: this.$scope.listForm.listName
-                }
+            }
             
-            });
+        });
         
-    }
+    };
 
     async matchSantas(ev: any) {
         try {
-
             this.$rootScope.santas = this.secretSanta(this.$rootScope.people);
             this.$rootScope.peopleOnFetchedList = await this.AuthService.saveList(this.$scope.listForm.listName,  this.$rootScope.santas);
-            console.log('saveList: ', this.$rootScope.peopleOnFetchedList);
             localStorage.removeItem('currentList');
             localStorage.removeItem('peopleOnList');
             this.$scope.listForm = {
@@ -578,113 +505,107 @@ export class HomeController {
                 personName: '',
                 personEmail: ''
     
-            }
+            };
             this.$rootScope.people = [];
             this.$scope.myForm.$setPristine();
             this.$scope.myForm.$setUntouched();
-            // this.$rootScope.peoplonFetchedList = await this.AuthService.getList(this.$rootScope.matchedListId);
-            var peopleToUpdate = this.$scope.santas;
             console.log(this.$rootScope.peopleOnFetchedList);
             this.$mdDialog.show({
                 template:`
                 <md-dialog aria-label="Secret Santas">
                     <form name="myForm" novalidate ng-cloak>
-
-                    <md-dialog-content class="santa-dialog">
-                        <div class="md-dialog-content">
-                            <h2><span class="cursor-pointer" ng-click="editMatchedTitle()">
-                                {{ title.title }}
-                                <md-tooltip md-direction="top">
-                                    Edit list name
-                                </md-tooltip>
-                                </span> 
-                                Secret Santas
-                            </h2>
-                            <div ng-show="editMatchedListName">
-                                <md-input-container class="md-inline">
-                                    <input type="text" ng-model="title.title" name="matchedListName" required placeholder="List Name"  />
-                                </md-input-container>
-                                <div layout="row">
-                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditOldListName()">Save</md-button>
-                                    <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
-                                </div>
-                            </div>
-                            <div flex class="santa-dialog">
-                                <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
-                            
-                            
-                                    <div ng-hide="person.editing" layout="row">
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index)">
-                                            {{ person.name }}
-                                            <p>{{person.email}}</p>
-                                        </div> 
-                                        <div class="cart-container">
-                                            <md-icon>output</md-icon>
-                                        </div>
-                                        <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArray.length ? 0 : $index + 1)">
-                                            {{ ($index + 1) === dataArray.length ? dataArray[0].name : dataArray[$index + 1].name }}
-                                            <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
-                                        </div>
+                        <md-dialog-content class="santa-dialog">
+                            <div class="md-dialog-content">
+                                <h2><span class="cursor-pointer" ng-click="editMatchedTitle()">
+                                    {{ title.title }}
+                                    <md-tooltip md-direction="top">
+                                        Edit list name
+                                    </md-tooltip>
+                                    </span> 
+                                    Secret Santas
+                                </h2>
+                                <div ng-show="editMatchedListName">
+                                    <md-input-container class="md-inline">
+                                        <input type="text" ng-model="title.title" name="matchedListName" required placeholder="List Name"  />
+                                    </md-input-container>
+                                    <div layout="row">
+                                        <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEditOldListName()">Save</md-button>
+                                        <md-button class="listEdit-btn" ng-click="cancelEditListName()">Cancel</md-button>
                                     </div>
+                                </div>
+                                <div flex class="santa-dialog">
+                                    <div md-no-ink class="md-2-line santa-list-item" ng-repeat="person in dataArray">
                                 
+                                
+                                        <div ng-hide="person.editing" layout="row">
+                                            <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index)">
+                                                {{ person.name }}
+                                                <p>{{person.email}}</p>
+                                            </div> 
+                                            <div class="cart-container">
+                                                <md-icon>output</md-icon>
+                                            </div>
+                                            <div flex style="width: 150px" class="md-list-item-text word-wrap" ng-click="enableEditing($index + 1 === dataArray.length ? 0 : $index + 1)">
+                                                {{ ($index + 1) === dataArray.length ? dataArray[0].name : dataArray[$index + 1].name }}
+                                                <p>{{ ($index + 1) === dataArray.length ? dataArray[0].email : dataArray[$index + 1].email }}</p>
+                                            </div>
+                                        </div>       
                                     
-                                
-                                    <div flex class="santa-editing" ng-show="person.editing">
-                                                    <!-- Edit view -->
-                                        <form name="editForm_{{$index}}" layout="column">
-                                            <div layout="row">
-                                                <md-input-container class="md-inline">
-                                                    <input type="text" ng-model="person.name" name="name" required placeholder="Name"  />
-                                                    <div ng-messages="['editForm_' + $index].name.$error">
-                                                        <div ng-message="required">Name is required.</div>
-                                                        <div ng-message="minlength">Name too short</div>
-                                                        <div ng-message="maxlength">Name too long</div>
-                                                    </div>
-                                                </md-input-container>
-                                                <md-input-container class="md-inline">
-                                                    <input type="email" ng-model="person.email" name="email" required placeholder="Email" ng-pattern="/^.+@.+\..+$/"  />
-                                                    <div ng-messages="['editForm_' + $index].email.$error">
-                                                        <div ng-message="required">Email is required.</div>
-                                                        <div ng-message="email">Valid email required.</div>
-                                                    </div>
-                                                </md-input-container>
-                                            </div>
-                                            <div layout="row">
-                                            <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
-                                            <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
-                                            </div>
-                                        </form>
-                                    </div>         
+                                        <div flex class="santa-editing" ng-show="person.editing">
+                                            <!-- Edit view -->
+                                            <form name="editForm_{{$index}}" layout="column">
+                                                <div layout="row">
+                                                    <md-input-container class="md-inline">
+                                                        <input type="text" ng-model="person.name" name="name" required placeholder="Name"  />
+                                                        <div ng-messages="['editForm_' + $index].name.$error">
+                                                            <div ng-message="required">Name is required.</div>
+                                                            <div ng-message="minlength">Name too short</div>
+                                                            <div ng-message="maxlength">Name too long</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                    <md-input-container class="md-inline">
+                                                        <input type="email" ng-model="person.email" name="email" required placeholder="Email" ng-pattern="/^.+@.+\..+$/"  />
+                                                        <div ng-messages="['editForm_' + $index].email.$error">
+                                                            <div ng-message="required">Email is required.</div>
+                                                            <div ng-message="email">Valid email required.</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+                                                <div layout="row">
+                                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                                    <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
+                                                </div>
+                                            </form>
+                                        </div>         
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </md-dialog-content>
+                        </md-dialog-content>
                 
-                    <md-dialog-actions layout="row">
-                        <div flex>
-                            <md-button class="md-icon-button" ng-click="shareList()">
-                            <md-icon>send</md-icon>
-                            <md-tooltip md-direction="top">
-                                Send List
-                            </md-tooltip>
-                            </md-button>
-                        </div>
-                        <div flex>
-                            <md-button class="md-icon-button" ng-click="showConfirmAndDownload()">
-                                <md-icon>download_for_offline</md-icon>
+                        <md-dialog-actions layout="row">
+                            <div flex>
+                                <md-button class="md-icon-button" ng-click="shareList()">
+                                <md-icon>send</md-icon>
                                 <md-tooltip md-direction="top">
-                                    Download
+                                    Send List
                                 </md-tooltip>
-                            </md-button>
-                        </div>
-                    
-                        <div flex>
-                            <md-button ng-click="closeDialog()">
-                                Close
-                            </md-button>
-                        </div>
-                    </md-dialog-actions>
-                </form>
+                                </md-button>
+                            </div>
+                            <div flex>
+                                <md-button class="md-icon-button" ng-click="showConfirmAndDownload()">
+                                    <md-icon>download_for_offline</md-icon>
+                                    <md-tooltip md-direction="top">
+                                        Download
+                                    </md-tooltip>
+                                </md-button>
+                            </div>
+                            <div flex>
+                                <md-button ng-click="closeDialog()">
+                                    Close
+                                </md-button>
+                            </div>
+                        </md-dialog-actions>
+                    </form>
                 </md-dialog>`,
                 targetEvent: ev,
                 clickOutsideToClose: false,
@@ -703,11 +624,11 @@ export class HomeController {
             }
         }
     
-    }
+    };
 
     closeDialog() {
         this.$mdDialog.hide();
-    }
+    };
 
     secretSanta(names: any) {
         // Shuffling the array
@@ -721,7 +642,7 @@ export class HomeController {
         });
     
         return pairs;
-    }
+    };
     
     shuffleArray(array: any) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -732,7 +653,6 @@ export class HomeController {
 
     disabledMatchButtonClick() {
         if (this.$rootScope.people.length % 2 !== 0) {
-            console.log('disabled button clicked');
           this.ToastService.showToast('You need at least 2 names to match Santas')
         }
 
@@ -740,19 +660,15 @@ export class HomeController {
 
     disabledAddButtonClick() {
         if (!this.$scope.enableAdd) {
-            console.log('disabled button clicked');
           this.ToastService.showToast('Fill out all fields to add a person')
         }
 
     }
 
     async getList(list: any, ev: Event) {
-        console.log('List to get: ', list);
         this.$scope.title = list.title;
         try {
             this.$rootScope.peopleOnFetchedList = await this.AuthService.getList(list.listId)
-                console.log('people on list: ,', this.$rootScope.peopleOnFetchedList);
-
             this.$mdDialog.show({
                 template: 
                 `
@@ -799,7 +715,7 @@ export class HomeController {
                                             
                                         
                                             <div flex class="santa-editing" ng-show="person.editing">
-                                                            <!-- Edit view -->
+                                                <!-- Edit view -->
                                                 <form name="editForm_{{$index}}" layout="column">
                                                     <div layout="row">
                                                         <md-input-container class="md-inline">
@@ -819,16 +735,16 @@ export class HomeController {
                                                         </md-input-container>
                                                     </div>
                                                     <div layout="row">
-                                                    <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
-                                                    <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
+                                                        <md-button ng-disabled="!enableUpdatePerson" class="listEdit-btn" ng-click="saveEdit($index)">Save</md-button>
+                                                        <md-button class="listEdit-btn" ng-click="cancelEdit($index)">Cancel</md-button>
                                                     </div>
                                                 </form>
                                             </div>         
                                         </div>
                                     </div>
-                                </div>
-                                
+                                </div>    
                             </md-dialog-content>
+
                             <md-dialog-actions layout="row">
                                 <md-button flex  class="md-icon-button" ng-click="shareListOld()">
                                     <md-icon>send</md-icon>
@@ -837,11 +753,11 @@ export class HomeController {
                                     </md-tooltip>
                                 </md-button>
                                 <md-button flex  class="md-icon-button" ng-click="showConfirmAndDownload()">
-                                <md-icon>download_for_offline</md-icon>
-                                <md-tooltip md-direction="top">
-                                    Download
-                                </md-tooltip>
-                            </md-button>
+                                    <md-icon>download_for_offline</md-icon>
+                                    <md-tooltip md-direction="top">
+                                        Download
+                                    </md-tooltip>
+                                </md-button>
                                 <md-button flex  class="md-icon-button" ng-click="showConfirmAndDeleteList()">
                                     <md-icon>delete</md-icon>
                                     <md-tooltip md-direction="top">
@@ -865,12 +781,11 @@ export class HomeController {
                 }
             })
         } catch (error:any) {
-            console.log(error);
             if (error.status !== 401) {
                 this.ToastService.showToast('Something went wrong: ', error.statusText)
             }
         }
-    }
+    };
 
     clearList() {
         var confirm = this.$mdDialog.confirm()
@@ -896,6 +811,5 @@ export class HomeController {
       }, function () {
             console.log("list cleared canceled");
       });
-    }
-    
-}
+    }   
+};

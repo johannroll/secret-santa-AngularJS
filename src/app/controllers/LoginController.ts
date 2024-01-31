@@ -1,6 +1,5 @@
 import * as angular from 'angular';
 
-
 interface ICustomScope extends angular.IScope {
     title: string;
     login: any;
@@ -16,11 +15,8 @@ interface ICustomScope extends angular.IScope {
     passwordType: string;
     viewPassword: Function;
     forgotPassword: Function;
-    DialogController: any
-
-        
+    DialogController: any        
 }
-
 
 export class LoginController {
     static $inject = ['$scope','$location', 'AuthService', 'ToastService', '$mdDialog'];
@@ -33,7 +29,6 @@ export class LoginController {
         $scope.isLoginValid = true;
         
         $scope.$watch('myPassForm.$valid', function(newVal, oldVal) {
-            console.log('Form validity changed. New validity:', newVal );
             if (newVal) {
                 $scope.isLoginValid = true;
             } else {
@@ -42,14 +37,13 @@ export class LoginController {
 
         });
 
-        $scope.passwordType = "password"
-        $scope.passwordVisible = 'visibility'
-        
+        $scope.passwordType = "password";
+        $scope.passwordVisible = 'visibility';
         $scope.isPasswordVisible = false;
         
         $scope.viewPassword = function() {
             $scope.isPasswordVisible = !$scope.isPasswordVisible;
-        }
+        };
         
         $scope.$watch('isPasswordVisible', function(newVal, oldVal) {
             if (newVal) {
@@ -59,18 +53,14 @@ export class LoginController {
                 $scope.passwordVisible = 'visibility'
                 $scope.passwordType = "password"
             }
-            console.log($scope.isPasswordVisible); 
         })
 
         $scope.login = (() => {
-            
-           
             var credentials = {
             userEmail: $scope.email.trim().toLocaleLowerCase(),
             password: $scope.password.trim()
             };
             var res: any;
-            console.log(credentials);
             this.AuthService.login(credentials).then((user: any) => {
             res = user;
             console.log("user return: ", res.data);
@@ -81,42 +71,37 @@ export class LoginController {
         
             })
             .catch((error: any) => {
-                console.log(error);
                 if (error.status === 500) {
                     this.ToastService.showToast("Something went wrong please try again");
                     return;
 
                 }
                 this.ToastService.showToast("Invalid username or password")
-            // this.isLoading = false;
-            // this.showToast()
             });            
         });
 
         $scope.toSignupPage = function () {
             $location.path('/signup')
-        }
+        };
 
         $scope.DialogController = async function($scope: any, AuthService: any, ToastService: any) {
             $scope.email = '';
 
             $scope.closeDialog = function() {
                 $mdDialog.hide();
-              }
-              $scope.currentTheme = localStorage.getItem('theme');
-        
+              };
 
+            $scope.currentTheme = localStorage.getItem('theme');
+        
             $scope.$watch('myForm.$valid', function(newVal:any, oldVal: any) {
-                console.log('reset password email: ', newVal);
                 if (newVal) {
                     $scope.isEmailValid = true;
                 } else {
                     $scope.isEmailValid = false;
                 }
-            })
+            });
 
             $scope.verifyReset = function() {
-                console.log('account to reset: ', $scope.email);
                 $mdDialog.hide();
                 AuthService.requestPasswordReset($scope.email)
                  .then(function(res: any) {
@@ -132,17 +117,14 @@ export class LoginController {
                  .catch(function(error: any) {
                     console.log(error);
                  });
-            }
-        }
+            };
+        };
 
         $scope.forgotPassword = function (ev: any) {
-            console.log('forgot password');
             $mdDialog.show({
-            
             template: 
                 `
                 <md-dialog aria-label="Account Settings" md-theme="{{currentTheme}}">
-            
                     <md-dialog-content>
                         <div class="md-dialog-content">
                             <h2>Reset Password</h2>
@@ -165,22 +147,19 @@ export class LoginController {
                         <md-button ng-disabled="!isEmailValid" ng-click="verifyReset()">Verify</md-button>
                         <md-button ng-click="closeDialog()">Cancel</md-button>
                     </md-dialog-actions>
-            
                 </md-dialog>
                 `,
             clickOutsideToClose: true,
             targetEvent: ev,
-            controller: this.DialogController,
-            
+            controller: this.DialogController,       
             });
         }
-    }
+    };
 
     disabledLoginButtonClick() {
         if (!this.$scope.isLoginValid) {
-            console.log('disabled button clicked');
-          this.ToastService.showToast('Please enter valid email and password')
+          this.ToastService.showToast('Please enter valid email and password');
         }
 
-    }
-}
+    };
+};
